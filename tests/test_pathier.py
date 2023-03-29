@@ -59,6 +59,19 @@ def test__pathier__dumps():
         assert_dummy(obj)
 
 
+def test__pathier__copy():
+    path = root / "dummy"
+    new_path = path.copy(path / "dummy2")
+    obj = (new_path / "dummy.toml").loads()
+    assert_dummy(obj)
+    obj["str"] = "not yeet"
+    (new_path / "dummy.toml").dumps(obj)
+    new_path.copy(path / "dummy.toml")
+    obj = (path / "dummy.toml").loads()
+    # Will fail if overwrite protection didn't work
+    assert_dummy(obj)
+
+
 def test__patheir__delete():
     path = root / "dummy"
     path.delete()
