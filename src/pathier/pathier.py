@@ -1,10 +1,11 @@
-import pathlib
-import json
-import tomlkit
-from typing import Any, Self
-import os
-import shutil
 import functools
+import json
+import os
+import pathlib
+import shutil
+from typing import Any, Self
+
+import tomlkit
 
 
 class Pathier(pathlib.Path):
