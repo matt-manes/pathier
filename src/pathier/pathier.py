@@ -154,6 +154,33 @@ class Pathier(pathlib.Path):
         elif self.is_dir():
             shutil.rmtree(self)
 
+    def copy(
+        self, new_path: Self | pathlib.Path | str, overwrite: bool = False
+    ) -> Self:
+        """Copy the path pointed to by this instance
+        to the instance pointed to by new_path using shutil.copyfile
+        or shutil.copytree. Returns the new path.
+
+        :param new_path: The copy destination.
+
+        :param overwrite: If True, files already existing in new_path
+        will be overwritten. If False, only files that don't exist in new_path
+        will be copied."""
+        new_path = Pathier(new_path)
+        if self.is_dir():
+            if overwrite or not new_path.exists():
+                shutil.copytree(self, new_path, dirs_exist_ok=True)
+            else:
+                files = self.rglob("*.*")
+                for file in files:
+                    dst = new_path.with_name(file.name)
+                    if not dst.exists():
+                        shutil.copyfile(file, dst)
+        elif self.is_file():
+            if overwrite or not new_path.exists():
+                shutil.copyfile(self, new_path)
+        return new_path
+
 
 class PosixPath(Pathier, pathlib.PurePosixPath):
     __slots__ = ()
