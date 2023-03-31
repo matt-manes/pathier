@@ -4,6 +4,7 @@ import os
 import pathlib
 import shutil
 from typing import Any, Self
+from functools import singledispatchmethod
 
 import tomlkit
 
@@ -20,6 +21,31 @@ class Pathier(pathlib.Path):
                 "cannot instantiate %r on your system" % (cls.__name__,)
             )
         return self
+
+    def moveup(self, name: str) -> Self:
+        """Return a new Pathier obj that is a parent of this instance.
+
+        :param name: The parent directory that should be the stem of the returned Pathier obj.
+        'name' is case-sensitive and raises an exception if it isn't in self.parts.
+        >>> p = Pathier("C:\some\directory\in\your\system")
+        >>> print(p.moveup("directory"))
+        >>> "C:\some\directory"
+        >>> print(p.moveup("yeet"))
+        >>> "Exception: yeet is not a parent of C:\some\directory\in\your\system" """
+        if name not in self.parts:
+            raise Exception(f"{name} is not a parent of {self}")
+        return Pathier(*(self.parts[: self.parts.index(name) + 1]))
+
+    def __sub__(self, levels: int) -> Self:
+        """Return a new Pathier obj moved up 'levels' number of parents:
+        >>> p = Pathier("C:\some\directory\in\your\system")
+        >>> new_p = p - 3
+        >>> print(new_p)
+        >>> "C:\some\directory" """
+        path = self
+        for _ in range(levels):
+            path = path.parent
+        return path
 
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
         """Create this directory.
