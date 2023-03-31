@@ -15,7 +15,22 @@ pip install pathier
 ## Usage
 
 Functions the same as pathlib.Path, but with added functions and some altered default arguments.<br>
-Can dump and load toml and json files:
+
+#### Navigation
+
+New paths can be obtained by naming the parent or subtracting a number of levels from the current path:
+<pre>
+from pathier import Pathier
+path = Pathier("C:\some\directory\some\subdirectory")
+print(path.moveup("directory"))
+"C:\some\directory"
+print(path - 3)
+"C:\some"
+</pre>
+
+#### Manipulation
+
+Can dump and load toml and json files without needed to explicityly import and call functions from the respective libraries:
 <pre>
 from pathier import Pathier
 path = Pathier("some_file.toml")
