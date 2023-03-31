@@ -73,7 +73,23 @@ def test__pathier__copy():
     assert_dummy(obj)
 
 
-def test__patheir__delete():
+def test__pathier__delete():
     path = root / "dummy"
     path.delete()
     assert not path.exists()
+
+
+def test__pathier__moveup():
+    assert root.moveup("pathier").stem == "pathier"
+
+
+def test__pathier__sub():
+    assert (root - 1).stem == "pathier"
+
+
+def test__pathier__touch():
+    path = root / "nested" / "touch" / "test" / "folder" / "yeet.txt"
+    assert not path.exists()
+    path.touch()
+    assert path.exists
+    path.moveup("nested").delete()
