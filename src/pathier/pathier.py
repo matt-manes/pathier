@@ -3,8 +3,8 @@ import json
 import os
 import pathlib
 import shutil
-from typing import Any, Self
 from functools import singledispatchmethod
+from typing import Any, Self
 
 import tomlkit
 
