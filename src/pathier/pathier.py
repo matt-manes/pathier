@@ -37,7 +37,7 @@ class Pathier(pathlib.Path):
         return Pathier(*(self.parts[: self.parts.index(name) + 1]))
 
     def __sub__(self, levels: int) -> Self:
-        """Return a new Pathier obj moved up 'levels' number of parents:
+        """Return a new Pathier obj moved up 'levels' number of parents from the current path.
         >>> p = Pathier("C:\some\directory\in\your\system")
         >>> new_p = p - 3
         >>> print(new_p)
