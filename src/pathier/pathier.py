@@ -28,6 +28,11 @@ class Pathier(pathlib.Path):
         to True instead of False."""
         super().mkdir(mode, parents, exist_ok)
 
+    def touch(self):
+        """Create file and parents if necessary."""
+        self.parent.mkdir()
+        super().touch()
+
     def write_text(
         self,
         data: Any,
