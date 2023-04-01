@@ -42,7 +42,7 @@ class Pathier(pathlib.Path):
             return None
 
     @property
-    def mod_time(self) -> datetime.datetime | None:
+    def mod_date(self) -> datetime.datetime | None:
         """Returns the modification date of this file
         or directory as a datetime.datetime object."""
         if self.exists():
