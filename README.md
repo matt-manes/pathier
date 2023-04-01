@@ -18,14 +18,19 @@ Functions the same as pathlib.Path, but with added functions and some altered de
 
 #### Navigation
 
-New paths can be obtained by naming the parent or subtracting a number of levels from the current path:
+New paths can be obtained by:<br>
+* naming the parent with moveup()
+* subtracting a number of levels from the current path
+* naming the parent of the path you actually want with move_under()
 <pre>
-from pathier import Pathier
-path = Pathier("C:\some\directory\some\subdirectory")
-print(path.moveup("directory"))
-"C:\some\directory"
-print(path - 3)
-"C:\some"
+>>> from pathier import Pathier
+>>> path = Pathier("C:/some/directory/to/some/file/on/the/system")
+>>> path.moveup("directory")
+WindowsPath('C:/some/directory')
+>>> path - 3
+WindowsPath('C:/some/directory/to/some/file')
+>>> path.move_under("directory")
+WindowsPath('C:/some/directory/to')
 </pre>
 
 #### Manipulation
