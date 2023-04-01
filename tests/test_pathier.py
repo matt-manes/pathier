@@ -112,3 +112,13 @@ def test__age():
 def test__dob():
     assert root.dob is not None
     assert (root / "yeet").dob is None
+
+
+def test__mod_date():
+    assert root.mod_date is not None
+    assert (root / "yeet").mod_date is None
+
+
+def test__mod_delta():
+    assert root.mod_delta is not None
+    assert (root / "yeet").mod_date is None
