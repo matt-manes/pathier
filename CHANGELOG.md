@@ -1,12 +1,42 @@
 # Changelog
 
-## 0.2.0 (2023-03-31)
+## 0.3.0 (2023-03-31)
+
+#### New Features
+
+* add modified_more_recently()
+* add is_older()
+* add is_larger() method
+* add mod_delta property
+* add mod_time property
+* add dob property
+* add age property
+* add format arg to size()
+* add format_size() static method
+* add size property
+#### Fixes
+
+* remove some erroneous text that found its way into some doc strings
+#### Refactorings
+
+* remove time module import
+* rename mod_time to mod_date
+* change size from property to function
+#### Others
+
+* add to readme
+* remove unused import
+
+
+## v0.2.0 (2023-03-31)
 
 #### New Features
 
 * add moveup() and __sub__() methods
 #### Others
 
+* build v0.2.0
+* update changelog
 * update readme
 * change __sub__ docstring
 
