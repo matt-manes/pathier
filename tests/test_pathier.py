@@ -122,3 +122,7 @@ def test__mod_date():
 def test__mod_delta():
     assert root.mod_delta is not None
     assert (root / "yeet").mod_date is None
+
+
+def test__is_larger():
+    assert (root / "dummy.json").is_larger(root / "blank.txt")
