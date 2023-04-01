@@ -146,8 +146,8 @@ class Pathier(pathlib.Path):
         if name not in self.parts:
             raise Exception(f"{name} is not a parent of {self}")
         if keep_name:
-            return self.parts[self.parts.index(name) :]
-        return self.parts[self.parts.index(name) + 1 :]
+            return Pathier(*self.parts[self.parts.index(name) :])
+        return Pathier(*self.parts[self.parts.index(name) + 1 :])
 
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
         """Create this directory.
