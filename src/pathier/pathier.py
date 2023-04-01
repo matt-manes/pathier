@@ -85,8 +85,13 @@ class Pathier(pathlib.Path):
 
     def is_larger(self, path: Self) -> bool:
         """Returns whether this file or folder is larger than
-        the one pointed to by 'path"""
+        the one pointed to by 'path'."""
         return self.size() > path.size()
+
+    def is_older(self, path: Self) -> bool:
+        """Returns whether this file or folder is older than
+        the one pointed to by 'path'."""
+        return self.dob < path.dob
 
     def moveup(self, name: str) -> Self:
         """Return a new Pathier object that is a parent of this instance.
