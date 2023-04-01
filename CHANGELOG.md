@@ -1,6 +1,16 @@
 # Changelog
 
-## 0.3.0 (2023-03-31)
+## 0.4.0 (2023-04-01)
+
+#### New Features
+
+* add move_under() method
+#### Others
+
+* update readme
+
+
+## v0.3.0 (2023-03-31)
 
 #### New Features
 
@@ -24,6 +34,8 @@
 * change size from property to function
 #### Others
 
+* build v0.3.0
+* update changelog
 * add to readme
 * remove unused import
 
