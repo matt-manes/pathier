@@ -126,3 +126,7 @@ def test__mod_delta():
 
 def test__is_larger():
     assert (root / "dummy.json").is_larger(root / "blank.txt")
+
+
+def test__is_older():
+    assert (root / "dummy.json").is_older(root / "blank.txt")
