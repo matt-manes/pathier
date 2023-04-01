@@ -21,9 +21,8 @@ class Pathier(pathlib.Path):
             )
         return self
 
-    @property
     def size(self) -> int | None:
-        """The size in bytes of this file or directory.
+        """Returns the size in bytes of this file or directory.
         Returns None if this path doesn't exist."""
         if not self.exists():
             return None
@@ -31,6 +30,14 @@ class Pathier(pathlib.Path):
             return self.stat().st_size
         if self.is_dir():
             return sum(file.stat().st_size for file in self.rglob("*.*"))
+
+    @functools.cached_property
+    def size_str(self) -> str:
+        """The size in bytes of this file or directory
+        formatted with common file size abbreviations
+        and rounded to two decimal places.
+        >>> 1234 -> "1.23 kb" """
+        size = self.size
 
     def moveup(self, name: str) -> Self:
         """Return a new Pathier obj that is a parent of this instance.
