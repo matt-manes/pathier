@@ -107,3 +107,8 @@ def test__format_size():
 def test__age():
     assert root.age > 0
     assert (root / "yeet").age is None
+
+
+def test__dob():
+    assert root.dob is not None
+    assert (root / "yeet").dob is None
