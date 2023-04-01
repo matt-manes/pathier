@@ -4,6 +4,7 @@ import os
 import pathlib
 import shutil
 from typing import Any, Self
+import time
 
 import tomlkit
 
@@ -20,6 +21,15 @@ class Pathier(pathlib.Path):
                 "cannot instantiate %r on your system" % (cls.__name__,)
             )
         return self
+
+    @property
+    def age(self) -> float | None:
+        """Returns the age of this file or directory
+        if it exists."""
+        if self.exists():
+            return time.time() - self.stat().st_ctime
+        else:
+            return None
 
     def size(self, format: bool = False) -> int | str | None:
         """Returns the size in bytes of this file or directory.
