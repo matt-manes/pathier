@@ -91,16 +91,6 @@ class Pathier(pathlib.Path):
 
     def moveup(self, name: str) -> Self:
         """Return a new Pathier object that is a parent of this instance.
-        if self.exists():
-            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
-        else:
-            return None
-
-        :param name: The parent directory that should be the stem of the returned Pathier object.
-        if self.exists():
-            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
-        else:
-            return None
         'name' is case-sensitive and raises an exception if it isn't in self.parts.
         >>> p = Pathier("C:\some\directory\in\your\system")
         >>> print(p.moveup("directory"))
@@ -113,10 +103,6 @@ class Pathier(pathlib.Path):
 
     def __sub__(self, levels: int) -> Self:
         """Return a new Pathier object moved up 'levels' number of parents from the current path.
-        if self.exists():
-            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
-        else:
-            return None
         >>> p = Pathier("C:\some\directory\in\your\system")
         >>> new_p = p - 3
         >>> print(new_p)
