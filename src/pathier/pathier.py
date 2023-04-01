@@ -93,6 +93,11 @@ class Pathier(pathlib.Path):
         the one pointed to by 'path'."""
         return self.dob < path.dob
 
+    def modified_more_recently(self, path: Self) -> bool:
+        """Returns whether this file or folder was modified
+        more recently than the one pointed to by 'path'."""
+        return self.mod_date > path.mod_date
+
     def moveup(self, name: str) -> Self:
         """Return a new Pathier object that is a parent of this instance.
         'name' is case-sensitive and raises an exception if it isn't in self.parts.
