@@ -102,3 +102,8 @@ def test__size():
 
 def test__format_size():
     assert Pathier.format_size(1234) == "1.23 kb"
+
+
+def test__age():
+    assert root.age > 0
+    assert (root / "yeet").age is None
