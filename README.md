@@ -48,3 +48,30 @@ path.with_suffix(".json").dumps(content, indent=2)
 
 `Pathier().copy()` will copy a file or a directory tree to a new destination and return a Pathier object for the new path<br>
 By default, files in the destination will not be overwritten.
+
+#### Stats and Comparisons
+<pre>
+>>> from pathier import Pathier
+>>> p = Pathier.cwd() / "pathier.py"
+>>> i = p.parent / "__init__.py"
+>>> p.dob
+datetime.datetime(2023, 3, 31, 18, 43, 12, 360000)
+>>> p.age
+8846.024934
+>>> p.mod_date
+datetime.datetime(2023, 3, 31, 21, 7, 30)
+>>> p.mod_delta
+207.488857
+>>> p.size()
+10744
+>>> p.size(True)
+'10.74 kb'
+>>> p.is_larger(i)
+True
+>>> p.is_older(i)
+False
+>>> p.modified_more_recently(i)
+True
+</pre>
+
+
