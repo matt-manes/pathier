@@ -22,6 +22,7 @@ New paths can be obtained by:<br>
 * naming the parent with moveup()
 * subtracting a number of levels from the current path
 * naming the parent of the path you actually want with move_under()
+* separating a relative path at a named parent with separate()
 <pre>
 >>> from pathier import Pathier
 >>> path = Pathier("C:/some/directory/to/some/file/on/the/system")
@@ -31,6 +32,10 @@ WindowsPath('C:/some/directory')
 WindowsPath('C:/some/directory/to/some/file')
 >>> path.move_under("directory")
 WindowsPath('C:/some/directory/to')
+>>> path.separate("file")
+WindowsPath('on/the/system')
+>>> path.separate("file", True)
+WindowsPath('file/on/the/system')
 </pre>
 
 #### Manipulation
