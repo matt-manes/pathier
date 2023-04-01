@@ -141,3 +141,9 @@ def test__move_under():
     assert path.move_under("b") == Pathier("a/b/c")
     assert path.move_under("d") == path
     assert path.move_under("a") == Pathier("a/b")
+
+
+def test__separate():
+    path = Pathier("a/b/c/d/e")
+    assert path.separate("c") == Pathier("d/e")
+    assert path.separate("c", True) == Pathier("c/d/e")
