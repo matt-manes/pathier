@@ -132,6 +132,23 @@ class Pathier(pathlib.Path):
             raise Exception(f"{name} is not a parent of {self}")
         return self - (len(self.parts) - self.parts.index(name) - 2)
 
+    def separate(self, name: str, keep_name: bool = False) -> Self:
+        """Return a new Pathier object that is the
+        relative child path after 'name'.
+        'name' is case-sensitive and raises an exception if it isn't in self.parts.
+
+        :param keep_name: If True, the returned path will start with 'name'.
+        >>> p = Pathier("a/b/c/d/e/f/g")
+        >>> print(p.separate("c"))
+        >>> 'd/e/f/g'
+        >>> print(p.separate("c", True))
+        >>> 'c/d/e/f/g'"""
+        if name not in self.parts:
+            raise Exception(f"{name} is not a parent of {self}")
+        if keep_name:
+            return self.parts[self.parts.index(name) :]
+        return self.parts[self.parts.index(name) + 1 :]
+
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
         """Create this directory.
         Same as Path().mkdir() except
