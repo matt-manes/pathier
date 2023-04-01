@@ -84,6 +84,11 @@ class Pathier(pathlib.Path):
             if size < 1000 or unit == "pb":
                 return f"{round(size, 2)} {unit}"
 
+    def is_larger(self, path: Self) -> bool:
+        """Returns whether this file or folder is larger than
+        the one pointed to by 'path"""
+        return self.size() > path.size()
+
     def moveup(self, name: str) -> Self:
         """Return a new Pathier object that is a parent of this instance.
         if self.exists():
