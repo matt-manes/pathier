@@ -121,6 +121,17 @@ class Pathier(pathlib.Path):
             path = path.parent
         return path
 
+    def move_under(self, name: str) -> Self:
+        """Return a new Pathier object such that the stem
+        is one level below the folder 'name'.
+        'name' is case-sensitive and raises an exception if it isn't in self.parts.
+        >>> p = Pathier("a/b/c/d/e/f/g")
+        >>> print(p.move_under("c"))
+        >>> 'a/b/c/d'"""
+        if name not in self.parts:
+            raise Exception(f"{name} is not a parent of {self}")
+        return self - (len(self.parts) - self.parts.index(name) - 2)
+
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
         """Create this directory.
         Same as Path().mkdir() except
