@@ -1,12 +1,27 @@
 # Changelog
 
-## 0.4.0 (2023-04-01)
+## 0.5.0 (2023-04-01)
+
+#### New Features
+
+* add separate() method
+#### Fixes
+
+* separate() returned tuple instead of new Pathier object
+#### Others
+
+* update readme
+
+
+## v0.4.0 (2023-04-01)
 
 #### New Features
 
 * add move_under() method
 #### Others
 
+* build v0.4.0
+* update changelog
 * update readme
 
 
