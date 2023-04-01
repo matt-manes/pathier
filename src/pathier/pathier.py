@@ -5,6 +5,7 @@ import pathlib
 import shutil
 from typing import Any, Self
 import time
+import datetime
 
 import tomlkit
 
@@ -21,6 +22,15 @@ class Pathier(pathlib.Path):
                 "cannot instantiate %r on your system" % (cls.__name__,)
             )
         return self
+
+    @property
+    def dob(self) -> datetime.datetime:
+        """Returns the creation date of this file
+        or directory as a dateime.datetime object."""
+        if self.exists():
+            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
+        else:
+            return None
 
     @property
     def age(self) -> float | None:
@@ -58,9 +68,17 @@ class Pathier(pathlib.Path):
                 return f"{round(size, 2)} {unit}"
 
     def moveup(self, name: str) -> Self:
-        """Return a new Pathier obj that is a parent of this instance.
+        """Return a new Pathier object that is a parent of this instance.
+        if self.exists():
+            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
+        else:
+            return None
 
-        :param name: The parent directory that should be the stem of the returned Pathier obj.
+        :param name: The parent directory that should be the stem of the returned Pathier object.
+        if self.exists():
+            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
+        else:
+            return None
         'name' is case-sensitive and raises an exception if it isn't in self.parts.
         >>> p = Pathier("C:\some\directory\in\your\system")
         >>> print(p.moveup("directory"))
@@ -72,7 +90,11 @@ class Pathier(pathlib.Path):
         return Pathier(*(self.parts[: self.parts.index(name) + 1]))
 
     def __sub__(self, levels: int) -> Self:
-        """Return a new Pathier obj moved up 'levels' number of parents from the current path.
+        """Return a new Pathier object moved up 'levels' number of parents from the current path.
+        if self.exists():
+            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
+        else:
+            return None
         >>> p = Pathier("C:\some\directory\in\your\system")
         >>> new_p = p - 3
         >>> print(new_p)
