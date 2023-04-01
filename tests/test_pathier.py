@@ -130,3 +130,7 @@ def test__is_larger():
 
 def test__is_older():
     assert (root / "dummy.json").is_older(root / "blank.txt")
+
+
+def test__modified_more_recently():
+    assert (root / "test_pathier.py").modified_more_recently(root / "blank.txt")
