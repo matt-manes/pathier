@@ -34,10 +34,9 @@ class Pathier(pathlib.Path):
 
     @property
     def age(self) -> float | None:
-        """Returns the age of this file or directory
-        if it exists."""
+        """Returns the age in seconds of this file or directory."""
         if self.exists():
-            return time.time() - self.stat().st_ctime
+            return (datetime.datetime.now() - self.dob).total_seconds()
         else:
             return None
 
@@ -47,6 +46,15 @@ class Pathier(pathlib.Path):
         or directory as a datetime.datetime object."""
         if self.exists():
             return datetime.datetime.fromtimestamp(self.stat().st_mtime)
+        else:
+            return None
+
+    @property
+    def mod_delta(self) -> float | None:
+        """Returns how long ago in seconds this file
+        or directory was modified."""
+        if self.exists():
+            return (datetime.datetime.now() - self.mod_date).total_seconds()
         else:
             return None
 
