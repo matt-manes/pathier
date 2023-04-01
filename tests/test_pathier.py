@@ -93,3 +93,8 @@ def test__pathier__touch():
     path.touch()
     assert path.exists
     path.moveup("nested").delete()
+
+
+def test__size():
+    assert (root / "test_pathier.py").size > 0
+    assert root.size > 0
