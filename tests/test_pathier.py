@@ -96,5 +96,9 @@ def test__pathier__touch():
 
 
 def test__size():
-    assert (root / "test_pathier.py").size > 0
-    assert root.size > 0
+    assert (root / "test_pathier.py").size() > 0
+    assert root.size() > 0
+
+
+def test__format_size():
+    assert Pathier.format_size(1234) == "1.23 kb"
