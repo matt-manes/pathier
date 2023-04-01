@@ -134,3 +134,10 @@ def test__is_older():
 
 def test__modified_more_recently():
     assert (root / "test_pathier.py").modified_more_recently(root / "blank.txt")
+
+
+def test__move_under():
+    path = Pathier("a/b/c/d/e")
+    assert path.move_under("b") == Pathier("a/b/c")
+    assert path.move_under("d") == path
+    assert path.move_under("a") == Pathier("a/b")
