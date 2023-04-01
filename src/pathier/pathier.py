@@ -24,7 +24,7 @@ class Pathier(pathlib.Path):
         return self
 
     @property
-    def dob(self) -> datetime.datetime:
+    def dob(self) -> datetime.datetime | None:
         """Returns the creation date of this file
         or directory as a dateime.datetime object."""
         if self.exists():
@@ -38,6 +38,15 @@ class Pathier(pathlib.Path):
         if it exists."""
         if self.exists():
             return time.time() - self.stat().st_ctime
+        else:
+            return None
+
+    @property
+    def mod_time(self) -> datetime.datetime | None:
+        """Returns the modification date of this file
+        or directory as a datetime.datetime object."""
+        if self.exists():
+            return datetime.datetime.fromtimestamp(self.stat().st_mtime)
         else:
             return None
 
