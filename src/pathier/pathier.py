@@ -31,13 +31,16 @@ class Pathier(pathlib.Path):
         if self.is_dir():
             return sum(file.stat().st_size for file in self.rglob("*.*"))
 
-    @functools.cached_property
-    def size_str(self) -> str:
-        """The size in bytes of this file or directory
-        formatted with common file size abbreviations
+    @staticmethod
+    def format_size(size: int) -> str:
+        """Format 'size' with common file size abbreviations
         and rounded to two decimal places.
         >>> 1234 -> "1.23 kb" """
-        size = self.size
+        for unit in ["bytes", "kb", "mb", "gb", "tb", "pb"]:
+            if unit != "bytes":
+                size *= 0.001
+            if size < 1000 or unit == "pb":
+                return f"{round(size, 2)} {unit}"
 
     def moveup(self, name: str) -> Self:
         """Return a new Pathier obj that is a parent of this instance.
