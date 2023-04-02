@@ -22,6 +22,7 @@ class Pathier(pathlib.Path):
             )
         return self
 
+    # ===============================================stats===============================================
     @property
     def dob(self) -> datetime.datetime | None:
         """Returns the creation date of this file
@@ -98,6 +99,11 @@ class Pathier(pathlib.Path):
         more recently than the one pointed to by 'path'."""
         return self.mod_date > path.mod_date
 
+    # ===============================================navigation===============================================
+    def mkcwd(self):
+        """Make this path your current working directory."""
+        os.chdir(self)
+
     def moveup(self, name: str) -> Self:
         """Return a new Pathier object that is a parent of this instance.
         'name' is case-sensitive and raises an exception if it isn't in self.parts.
@@ -149,6 +155,7 @@ class Pathier(pathlib.Path):
             return Pathier(*self.parts[self.parts.index(name) :])
         return Pathier(*self.parts[self.parts.index(name) + 1 :])
 
+    # ============================================write and read============================================
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
         """Create this directory.
         Same as Path().mkdir() except
