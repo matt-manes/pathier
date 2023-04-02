@@ -1,4 +1,5 @@
 from typing import Any
+import os
 
 import pytest
 
@@ -147,3 +148,14 @@ def test__separate():
     path = Pathier("a/b/c/d/e")
     assert path.separate("c") == Pathier("d/e")
     assert path.separate("c", True) == Pathier("c/d/e")
+
+
+def test__mkcwd():
+    og_cwd = Pathier.cwd()
+    os.chdir(root)
+    cwd = Pathier.cwd()
+    path = (root - 1) / "src" / "pathier"
+    path.mkcwd()
+    assert Pathier.cwd() != cwd
+    assert Pathier.cwd() == path
+    os.chdir(og_cwd)
