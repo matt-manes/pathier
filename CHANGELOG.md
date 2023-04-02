@@ -1,6 +1,16 @@
 # Changelog
 
-## 0.5.0 (2023-04-01)
+## 0.6.0 (2023-04-02)
+
+#### New Features
+
+* add mkcwd() method
+#### Others
+
+* update readme
+
+
+## v0.5.0 (2023-04-01)
 
 #### New Features
 
@@ -10,6 +20,8 @@
 * separate() returned tuple instead of new Pathier object
 #### Others
 
+* build v0.5.0
+* update changelog
 * update readme
 
 
