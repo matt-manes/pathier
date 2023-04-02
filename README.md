@@ -23,6 +23,7 @@ New paths can be obtained by:<br>
 * subtracting a number of levels from the current path
 * naming the parent of the path you actually want with move_under()
 * separating a relative path at a named parent with separate()
+* set current working directory to path
 <pre>
 >>> from pathier import Pathier
 >>> path = Pathier("C:/some/directory/to/some/file/on/the/system")
@@ -36,9 +37,12 @@ WindowsPath('C:/some/directory/to')
 WindowsPath('on/the/system')
 >>> path.separate("file", True)
 WindowsPath('file/on/the/system')
+>>> path.mkcwd()
+>>> Pathier.cwd()
+WindowsPath('C:/some/directory/to/some/file/on/the/system')
 </pre>
 
-#### Manipulation
+#### Read and Write
 
 Can dump and load toml and json files without needed to explicityly import and call functions from the respective libraries:
 <pre>
