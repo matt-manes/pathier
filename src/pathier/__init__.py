@@ -1,3 +1,3 @@
-from .pathier import Pathier
+from .pathier import Pathier, PathLike
 
-__all__ = ["Pathier"]
+__all__ = ["Pathier", "PathLike"]

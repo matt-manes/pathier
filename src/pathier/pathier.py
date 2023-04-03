@@ -4,7 +4,7 @@ import json
 import os
 import pathlib
 import shutil
-from typing import Any, Self
+from typing import Any, Self, TypeVar
 
 import tomlkit
 
@@ -329,3 +329,6 @@ class PosixPath(Pathier, pathlib.PurePosixPath):
 
 class WindowsPath(Pathier, pathlib.PureWindowsPath):
     __slots__ = ()
+
+
+PathLike = TypeVar("PathLike", Pathier, pathlib.Path, str)
