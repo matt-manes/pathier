@@ -5,6 +5,7 @@ import os
 import pathlib
 import shutil
 from typing import Any, Self
+import sys
 
 import tomlkit
 
@@ -103,6 +104,23 @@ class Pathier(pathlib.Path):
     def mkcwd(self):
         """Make this path your current working directory."""
         os.chdir(self)
+
+    def add_to_PATH(self, index: int = 0):
+        """Insert this path into sys.path
+        if it isn't already there.
+
+        :param index: The index of sys.path
+        to insert this path at."""
+        path = str(self)
+        if path not in sys.path:
+            sys.path.insert(index, path)
+
+    def append_to_PATH(self):
+        """Append this path to sys.path
+        if it isn't already there."""
+        path = str(self)
+        if path not in sys.path:
+            sys.path.append(path)
 
     def moveup(self, name: str) -> Self:
         """Return a new Pathier object that is a parent of this instance.
