@@ -1,12 +1,26 @@
 # Changelog
 
-## 0.6.0 (2023-04-02)
+## 0.7.0 (2023-04-11)
+
+#### New Features
+
+* add remove_from_PATH and make in_PATH a property
+* add functions to add path to sys.path
+* add 'PathLike' reference for annotating types that can be Pathier, pathlib.Path, or str
+#### Others
+
+* update readme
+
+
+## v0.6.0 (2023-04-02)
 
 #### New Features
 
 * add mkcwd() method
 #### Others
 
+* build v0.6.0
+* update changelog
 * update readme
 
 
