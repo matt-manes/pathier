@@ -5,9 +5,14 @@ import os
 import pathlib
 import shutil
 import sys
-from typing import Any, Self
+from typing import Any
 
 import tomlkit
+
+try:
+    from typing import Self
+except Exception as e:
+    Self = Any
 
 
 class Pathier(pathlib.Path):
