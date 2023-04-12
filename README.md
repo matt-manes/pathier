@@ -42,6 +42,27 @@ WindowsPath('file/on/the/system')
 WindowsPath('C:/some/directory/to/some/file/on/the/system')
 </pre>
 
+#### PATH
+
+Pathier objects can be added and removed from sys.path:<br>
+(The path will only be added if it isn't already in sys.path)
+<pre>
+>>> from pathier import Pathier
+>>> path = Pathier.cwd()
+>>> path.in_PATH
+False
+>>> path.add_to_PATH(0)
+>>> path.in_PATH
+True
+>>> path.remove_from_PATH()
+>>> path.in_PATH
+False
+>>> path.append_to_PATH()
+>>> path.in_PATH
+True
+</pre>
+
+
 #### Read and Write
 
 Can dump and load toml and json files without needed to explicityly import and call functions from the respective libraries:
