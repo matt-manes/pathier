@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "pathier"
 description = "Extends the standard library pathlib.Path class."
-version = "0.6.0"
+version = "0.7.0"
 requires-python = ">=3.11"
 dependencies = ["tomlkit", "pytest", "databased"]
 readme = "README.md"

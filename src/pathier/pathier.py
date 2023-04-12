@@ -4,8 +4,8 @@ import json
 import os
 import pathlib
 import shutil
-from typing import Any, Self
 import sys
+from typing import Any, Self
 
 import tomlkit
 
