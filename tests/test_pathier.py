@@ -1,5 +1,6 @@
 import os
 from typing import Any
+import sys
 
 import pytest
 
@@ -159,3 +160,34 @@ def test__mkcwd():
     assert Pathier.cwd() != cwd
     assert Pathier.cwd() == path
     os.chdir(og_cwd)
+
+
+def test__add_to_PATH():
+    path = str(root)
+
+    assert path not in sys.path
+    assert not root.in_PATH
+
+    root.add_to_PATH()
+    assert sys.path[0] == path
+    assert root.in_PATH
+
+    root.add_to_PATH(1)
+    assert sys.path[1] != path
+
+    root.remove_from_PATH()
+    assert path not in sys.path
+    assert not root.in_PATH
+
+    root.add_to_PATH(1)
+    assert sys.path[1] == path
+    assert root.in_PATH
+
+    root.append_to_PATH()
+    assert sys.path[-1] != path
+
+    root.remove_from_PATH()
+    root.append_to_PATH()
+    assert sys.path[-1] == path
+    assert root.in_PATH
+    root.remove_from_PATH()
