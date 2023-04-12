@@ -105,6 +105,12 @@ class Pathier(pathlib.Path):
         """Make this path your current working directory."""
         os.chdir(self)
 
+    @property
+    def in_PATH(self) -> bool:
+        """Return True if this
+        path is in sys.path."""
+        return str(self) in sys.path
+
     def add_to_PATH(self, index: int = 0):
         """Insert this path into sys.path
         if it isn't already there.
@@ -112,15 +118,21 @@ class Pathier(pathlib.Path):
         :param index: The index of sys.path
         to insert this path at."""
         path = str(self)
-        if path not in sys.path:
+        if not self.in_PATH:
             sys.path.insert(index, path)
 
     def append_to_PATH(self):
         """Append this path to sys.path
         if it isn't already there."""
         path = str(self)
-        if path not in sys.path:
+        if not self.in_PATH:
             sys.path.append(path)
+
+    def remove_from_PATH(self):
+        """Remove this path from sys.path
+        if it's in sys.path."""
+        if self.in_PATH:
+            sys.path.remove(str(self))
 
     def moveup(self, name: str) -> Self:
         """Return a new Pathier object that is a parent of this instance.
