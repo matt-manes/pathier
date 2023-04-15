@@ -1,6 +1,22 @@
 # Changelog
 
-## 0.7.0 (2023-04-11)
+## 0.8.0 (2023-04-15)
+
+#### New Features
+
+* wrap importing typing.Self in try/except to accomodate python 3.10
+#### Refactorings
+
+* import Self from typing_extensions
+#### Others
+
+* remove uneeded dependency
+* set requires-python to >=3.10
+* build v0.7.0
+* remove uneeded dependency
+
+
+## v0.7.0 (2023-04-11)
 
 #### New Features
 
@@ -9,6 +25,8 @@
 * add 'PathLike' reference for annotating types that can be Pathier, pathlib.Path, or str
 #### Others
 
+* build v0.7.0
+* update changelog
 * update readme
 
 
