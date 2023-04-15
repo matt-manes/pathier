@@ -8,11 +8,7 @@ import sys
 from typing import Any
 
 import tomlkit
-
-try:
-    from typing import Self
-except Exception as e:
-    Self = Any
+from typing_extensions import Self
 
 
 class Pathier(pathlib.Path):
