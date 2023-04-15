@@ -5,9 +5,10 @@ import os
 import pathlib
 import shutil
 import sys
-from typing import Any, Self
+from typing import Any
 
 import tomlkit
+from typing_extensions import Self
 
 
 class Pathier(pathlib.Path):
