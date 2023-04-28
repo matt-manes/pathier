@@ -5,6 +5,7 @@ import os
 import pathlib
 import shutil
 import sys
+import time
 from typing import Any
 
 import tomlkit
@@ -352,6 +353,29 @@ class Pathier(pathlib.Path):
             if overwrite or not new_path.exists():
                 shutil.copyfile(self, new_path)
         return new_path
+
+    def backup(self, timestamp: bool = False) -> Self | None:
+        """Create a copy of this file or directory with `_backup` appended to the path stem.
+        If the path to be backed up doesn't exist, `None` is returned.
+        Otherwise a `Pathier` object for the backup is returned.
+
+        :param `timestamp`: Add a timestamp to the backup name to prevent overriding previous backups.
+
+        >>> path = Pathier("some_file.txt")
+        >>> path.backup()
+        >>> list(path.iterdir())
+        >>> ['some_file.txt', 'some_file_backup.txt']
+        >>> path.backup(True)
+        >>> list(path.iterdir())
+        >>> ['some_file.txt', 'some_file_backup.txt', 'some_file_backup_04-28-2023-06_25_52_PM.txt']"""
+        if not self.exists():
+            return None
+        backup_stem = f"{self.stem}_backup"
+        if timestamp:
+            backup_stem = f"{backup_stem}_{datetime.datetime.now().strftime('%m-%d-%Y-%I_%M_%S_%p')}"
+        backup_path = self.with_stem(backup_stem)
+        self.copy(backup_path, True)
+        return backup_path
 
 
 class PosixPath(Pathier, pathlib.PurePosixPath):
