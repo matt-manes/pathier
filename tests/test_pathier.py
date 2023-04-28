@@ -191,3 +191,16 @@ def test__add_to_PATH():
     assert sys.path[-1] == path
     assert root.in_PATH
     root.remove_from_PATH()
+
+
+def test__backup():
+    path = root / "dummy.dummy"
+    ret_val = path.backup()
+    assert ret_val is None
+    path = root / "dummy.toml"
+    ret_val = path.backup()
+    assert ret_val.exists()
+    ret_val.delete()
+    ret_val = path.backup(True)
+    assert ret_val.exists()
+    ret_val.delete()
