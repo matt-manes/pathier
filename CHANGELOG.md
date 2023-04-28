@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.8.0 (2023-04-15)
+## 0.9.0 (2023-04-28)
+
+#### New Features
+
+* add backup function
+
+
+## v0.8.0 (2023-04-15)
 
 #### New Features
 
@@ -10,10 +17,11 @@
 * import Self from typing_extensions
 #### Others
 
+* build v0.8.0
+* update changelog
 * remove uneeded dependency
 * set requires-python to >=3.10
 * build v0.7.0
-* remove uneeded dependency
 
 
 ## v0.7.0 (2023-04-11)
