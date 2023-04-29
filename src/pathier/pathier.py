@@ -244,6 +244,19 @@ class Pathier(pathlib.Path):
         except Exception as e:
             raise
 
+    def append(self, data: str, new_line: bool = True, encoding: Any | None = None):
+        """Append `data` to the file pointed to by this `Pathier` object.
+
+        #### :params:
+
+        `new_line`: If `True`, add `\\n` to `data`.
+
+        `encoding`: The file encoding to use."""
+        if new_line:
+            data += "\n"
+        with self.open("a", encoding=encoding) as file:
+            file.write(data)
+
     def replace(
         self,
         old_string: str,
