@@ -248,6 +248,33 @@ class Pathier(pathlib.Path):
         except Exception as e:
             raise
 
+    def replace(
+        self,
+        old_string: str,
+        new_string: str,
+        count: int = -1,
+        encoding: Any | None = None,
+    ):
+        """Replace `old_string` in a file with `new_string`.
+
+        ### :params:
+
+        `count`: Only replace this many occurences of `old_string`.
+        By default (`-1`), all occurences are replaced.
+
+        `encoding`: The file encoding to use.
+
+        e.g.
+        >>> path = Pathier("somefile.txt")
+        >>>
+        >>> path.replace("hello", "yeet")
+        equivalent to
+        >>> path.write_text(path.read_text().replace("hello", "yeet"))"""
+        self.write_text(
+            self.read_text(encoding).replace(old_string, new_string, count),
+            encoding=encoding,
+        )
+
     def json_loads(self, encoding: Any | None = None, errors: Any | None = None) -> Any:
         """Load json file."""
         return json.loads(self.read_text(encoding, errors))
