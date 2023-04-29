@@ -204,3 +204,13 @@ def test__backup():
     ret_val = path.backup(True)
     assert ret_val.exists()
     ret_val.delete()
+
+
+def test__execute():
+    test_path = root / "test_pathier.py"
+    # Don't want to execute pytest infinitely
+    test_path.write_text(test_path.read_text().replace("execute", "execute"))
+    root.execute("pytest -s")
+    test_path.write_text(
+        test_path.read_text().replace("test__execute()", "test__execute()")
+    )
