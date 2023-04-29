@@ -225,3 +225,11 @@ def test__append():
     appender.append("4")
     assert appender.read_text().splitlines() == ["1", "2", "34"]
     appender.delete()
+
+
+def test__split():
+    file = root / "join_split.txt"
+    data = [str(n) for n in range(10)]
+    file.join(data)
+    assert file.split() == data
+    file.delete()
