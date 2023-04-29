@@ -27,8 +27,7 @@ class Pathier(pathlib.Path):
     # ===============================================stats===============================================
     @property
     def dob(self) -> datetime.datetime | None:
-        """Returns the creation date of this file
-        or directory as a dateime.datetime object."""
+        """Returns the creation date of this file or directory as a `dateime.datetime` object."""
         if self.exists():
             return datetime.datetime.fromtimestamp(self.stat().st_ctime)
         else:
@@ -44,8 +43,7 @@ class Pathier(pathlib.Path):
 
     @property
     def mod_date(self) -> datetime.datetime | None:
-        """Returns the modification date of this file
-        or directory as a datetime.datetime object."""
+        """Returns the modification date of this file or directory as a `datetime.datetime` object."""
         if self.exists():
             return datetime.datetime.fromtimestamp(self.stat().st_mtime)
         else:
@@ -53,8 +51,7 @@ class Pathier(pathlib.Path):
 
     @property
     def mod_delta(self) -> float | None:
-        """Returns how long ago in seconds this file
-        or directory was modified."""
+        """Returns how long ago in seconds this file or directory was modified."""
         if self.exists():
             return (datetime.datetime.now() - self.mod_date).total_seconds()
         else:
@@ -62,9 +59,11 @@ class Pathier(pathlib.Path):
 
     def size(self, format: bool = False) -> int | str | None:
         """Returns the size in bytes of this file or directory.
-        Returns None if this path doesn't exist.
+        Returns `None` if this path doesn't exist.
 
-        :param format: If True, return value as a formatted string."""
+        #### :params:
+
+        `format`: If `True`, return value as a formatted string."""
         if not self.exists():
             return None
         if self.is_file():
@@ -77,8 +76,7 @@ class Pathier(pathlib.Path):
 
     @staticmethod
     def format_size(size: int) -> str:
-        """Format 'size' with common file size abbreviations
-        and rounded to two decimal places.
+        """Format `size` with common file size abbreviations and rounded to two decimal places.
         >>> 1234 -> "1.23 kb" """
         for unit in ["bytes", "kb", "mb", "gb", "tb", "pb"]:
             if unit != "bytes":
@@ -87,18 +85,15 @@ class Pathier(pathlib.Path):
                 return f"{round(size, 2)} {unit}"
 
     def is_larger(self, path: Self) -> bool:
-        """Returns whether this file or folder is larger than
-        the one pointed to by 'path'."""
+        """Returns whether this file or folder is larger than the one pointed to by `path`."""
         return self.size() > path.size()
 
     def is_older(self, path: Self) -> bool:
-        """Returns whether this file or folder is older than
-        the one pointed to by 'path'."""
+        """Returns whether this file or folder is older than the one pointed to by `path`."""
         return self.dob < path.dob
 
     def modified_more_recently(self, path: Self) -> bool:
-        """Returns whether this file or folder was modified
-        more recently than the one pointed to by 'path'."""
+        """Returns whether this file or folder was modified more recently than the one pointed to by `path`."""
         return self.mod_date > path.mod_date
 
     # ===============================================navigation===============================================
@@ -108,36 +103,34 @@ class Pathier(pathlib.Path):
 
     @property
     def in_PATH(self) -> bool:
-        """Return True if this
-        path is in sys.path."""
+        """Return `True` if this path is in `sys.path`."""
         return str(self) in sys.path
 
     def add_to_PATH(self, index: int = 0):
-        """Insert this path into sys.path
-        if it isn't already there.
+        """Insert this path into `sys.path` if it isn't already there.
 
-        :param index: The index of sys.path
-        to insert this path at."""
+        #### :params:
+
+        `index`: The index of `sys.path` to insert this path at."""
         path = str(self)
         if not self.in_PATH:
             sys.path.insert(index, path)
 
     def append_to_PATH(self):
-        """Append this path to sys.path
-        if it isn't already there."""
+        """Append this path to `sys.path` if it isn't already there."""
         path = str(self)
         if not self.in_PATH:
             sys.path.append(path)
 
     def remove_from_PATH(self):
-        """Remove this path from sys.path
-        if it's in sys.path."""
+        """Remove this path from `sys.path` if it's in `sys.path`."""
         if self.in_PATH:
             sys.path.remove(str(self))
 
     def moveup(self, name: str) -> Self:
-        """Return a new Pathier object that is a parent of this instance.
-        'name' is case-sensitive and raises an exception if it isn't in self.parts.
+        """Return a new `Pathier` object that is a parent of this instance.
+
+        `name` is case-sensitive and raises an exception if it isn't in `self.parts`.
         >>> p = Pathier("C:\some\directory\in\your\system")
         >>> print(p.moveup("directory"))
         >>> "C:\some\directory"
@@ -148,7 +141,7 @@ class Pathier(pathlib.Path):
         return Pathier(*(self.parts[: self.parts.index(name) + 1]))
 
     def __sub__(self, levels: int) -> Self:
-        """Return a new Pathier object moved up 'levels' number of parents from the current path.
+        """Return a new `Pathier` object moved up `levels` number of parents from the current path.
         >>> p = Pathier("C:\some\directory\in\your\system")
         >>> new_p = p - 3
         >>> print(new_p)
@@ -159,9 +152,9 @@ class Pathier(pathlib.Path):
         return path
 
     def move_under(self, name: str) -> Self:
-        """Return a new Pathier object such that the stem
-        is one level below the folder 'name'.
-        'name' is case-sensitive and raises an exception if it isn't in self.parts.
+        """Return a new `Pathier` object such that the stem is one level below the given folder `name`.
+
+        `name` is case-sensitive and raises an exception if it isn't in `self.parts`.
         >>> p = Pathier("a/b/c/d/e/f/g")
         >>> print(p.move_under("c"))
         >>> 'a/b/c/d'"""
@@ -170,11 +163,13 @@ class Pathier(pathlib.Path):
         return self - (len(self.parts) - self.parts.index(name) - 2)
 
     def separate(self, name: str, keep_name: bool = False) -> Self:
-        """Return a new Pathier object that is the
-        relative child path after 'name'.
-        'name' is case-sensitive and raises an exception if it isn't in self.parts.
+        """Return a new `Pathier` object that is the relative child path after `name`.
 
-        :param keep_name: If True, the returned path will start with 'name'.
+        `name` is case-sensitive and raises an exception if it isn't in `self.parts`.
+
+        #### :params:
+
+        `keep_name`: If `True`, the returned path will start with `name`.
         >>> p = Pathier("a/b/c/d/e/f/g")
         >>> print(p.separate("c"))
         >>> 'd/e/f/g'
@@ -189,13 +184,12 @@ class Pathier(pathlib.Path):
     # ============================================write and read============================================
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
         """Create this directory.
-        Same as Path().mkdir() except
-        'parents' and 'exist_ok' default
-        to True instead of False."""
+
+        Same as `Path().mkdir()` except `parents` and `exist_ok` default to `True` instead of `False`."""
         super().mkdir(mode, parents, exist_ok)
 
     def touch(self):
-        """Create file and parents if necessary."""
+        """Create file (and parents if necessary)."""
         self.parent.mkdir()
         super().touch()
 
@@ -207,10 +201,11 @@ class Pathier(pathlib.Path):
         newline: Any | None = None,
         parents: bool = True,
     ):
-        """Write data to file. If a TypeError is raised, the function
-        will attempt to case data to a str and try the write again.
-        If a FileNotFoundError is raised and parents = True,
-        self.parent will be created."""
+        """Write data to file.
+
+        If a `TypeError` is raised, the function  will attempt to cast `data` to a `str` and try the write again.
+
+        If a `FileNotFoundError` is raised and `parents = True`, `self.parent` will be created."""
         write = functools.partial(
             super().write_text,
             encoding=encoding,
@@ -234,9 +229,10 @@ class Pathier(pathlib.Path):
     def write_bytes(self, data: bytes, parents: bool = True):
         """Write bytes to file.
 
-        :param parents: If True and the write operation fails
-        with a FileNotFoundError, make the parent directory
-        and retry the write."""
+        #### :params:
+
+        `parents`: If `True` and the write operation fails with a `FileNotFoundError`,
+        make the parent directory and retry the write."""
         try:
             super().write_bytes(data)
         except FileNotFoundError:
@@ -257,7 +253,7 @@ class Pathier(pathlib.Path):
     ):
         """Replace `old_string` in a file with `new_string`.
 
-        ### :params:
+        #### :params:
 
         `count`: Only replace this many occurences of `old_string`.
         By default (`-1`), all occurences are replaced.
@@ -290,7 +286,7 @@ class Pathier(pathlib.Path):
         default: Any | None = None,
         parents: bool = True,
     ) -> Any:
-        """Dump data to json file."""
+        """Dump `data` to json file."""
         self.write_text(
             json.dumps(data, indent=indent, default=default, sort_keys=sort_keys),
             encoding,
@@ -312,7 +308,7 @@ class Pathier(pathlib.Path):
         sort_keys: bool = False,
         parents: bool = True,
     ):
-        """Dump data to toml file."""
+        """Dump `data` to toml file."""
         self.write_text(
             tomlkit.dumps(data, sort_keys), encoding, errors, newline, parents
         )
@@ -336,7 +332,7 @@ class Pathier(pathlib.Path):
         default: Any | None = None,
         parents: bool = True,
     ):
-        """Dump data to a json or toml file based off this instance's suffix."""
+        """Dump `data` to a json or toml file based off this instance's suffix."""
         match self.suffix:
             case ".json":
                 self.json_dumps(
@@ -347,7 +343,8 @@ class Pathier(pathlib.Path):
 
     def delete(self, missing_ok: bool = True):
         """Delete the file or folder pointed to by this instance.
-        Uses self.unlink() if a file and uses shutil.rmtree() if a directory."""
+
+        Uses `self.unlink()` if a file and uses `shutil.rmtree()` if a directory."""
         if self.is_file():
             self.unlink(missing_ok)
         elif self.is_dir():
@@ -357,14 +354,17 @@ class Pathier(pathlib.Path):
         self, new_path: Self | pathlib.Path | str, overwrite: bool = False
     ) -> Self:
         """Copy the path pointed to by this instance
-        to the instance pointed to by new_path using shutil.copyfile
-        or shutil.copytree. Returns the new path.
+        to the instance pointed to by `new_path` using `shutil.copyfile`
+        or `shutil.copytree`.
 
-        :param new_path: The copy destination.
+        Returns the new path.
 
-        :param overwrite: If True, files already existing in new_path
-        will be overwritten. If False, only files that don't exist in new_path
-        will be copied."""
+        #### :params:
+
+        `new_path`: The copy destination.
+
+        `overwrite`: If `True`, files already existing in `new_path` will be overwritten.
+        If `False`, only files that don't exist in `new_path` will be copied."""
         new_path = Pathier(new_path)
         if self.is_dir():
             if overwrite or not new_path.exists():
@@ -385,7 +385,9 @@ class Pathier(pathlib.Path):
         If the path to be backed up doesn't exist, `None` is returned.
         Otherwise a `Pathier` object for the backup is returned.
 
-        :param `timestamp`: Add a timestamp to the backup name to prevent overriding previous backups.
+        #### :params:
+
+        `timestamp`: Add a timestamp to the backup name to prevent overriding previous backups.
 
         >>> path = Pathier("some_file.txt")
         >>> path.backup()
@@ -406,7 +408,7 @@ class Pathier(pathlib.Path):
     def execute(self, command: str = "", args: str = "") -> int:
         """Make a call to `os.system` using the path pointed to by this Pathier object.
 
-        :params:
+        #### :params:
 
         `command`: Program/command to precede the path with.
 
