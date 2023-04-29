@@ -42,7 +42,7 @@ WindowsPath('file/on/the/system')
 WindowsPath('C:/some/directory/to/some/file/on/the/system')
 </pre>
 
-#### PATH
+#### Environment PATH Variable
 
 Pathier objects can be added and removed from sys.path:<br>
 (The path will only be added if it isn't already in sys.path)
@@ -83,6 +83,16 @@ path.with_suffix(".json").dumps(content, indent=2)
 
 `Pathier().copy()` will copy a file or a directory tree to a new destination and return a Pathier object for the new path<br>
 By default, files in the destination will not be overwritten.
+
+`Pathier().backup()` will create a copy of the path with `_backup` appended to the stem.
+If the optional parameter, `timestamp`, is `True`, a datetime string will be added after `_backup` to prevent overwriting previous backup files.
+
+`Pathier().replace()` will read the file the instance points to, replace the provided `old_string` with the provided `new_string`, and then write it back to the file.<br>
+Essentially just condenses reading the file, using str.replace(), and then writing the new content into one function call.
+
+`Pathier().execute()` wraps calling `os.system()` on the path pointed to be the `Pathier` instance.<br>
+Optional strings that should come before and after the path string can be specified with the `command` and `args` params, respectively.<br>
+`Pathier("file.py").execute("py", "--iterations 10")` is equivalent to `os.system("py file.py --iterations 10")`
 
 #### Stats and Comparisons
 <pre>
