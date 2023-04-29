@@ -284,6 +284,26 @@ class Pathier(pathlib.Path):
             encoding=encoding,
         )
 
+    def join(self, data: list[str], encoding: Any | None = None):
+        """Write a list of strings, joined by "\\n", to the file pointed at by this instance.
+
+        Equivalent to `Pathier("somefile.txt").write_text("\\n".join(data), encoding=encoding)
+
+        #### :params:
+
+        `encoding`: The file encoding to use."""
+        self.write_text("\n".join(data), encoding=encoding)
+
+    def split(self, encoding: Any | None = None) -> list[str]:
+        """Returns the content of the pointed at file as a list of strings, splitting at new line characters.
+
+        Equivalent to `Pathier("somefile.txt").read_text(encoding=encoding).splitlines()`
+
+        #### :params:
+
+        `encoding`: The file encoding to use."""
+        return self.read_text(encoding=encoding).splitlines()
+
     def json_loads(self, encoding: Any | None = None, errors: Any | None = None) -> Any:
         """Load json file."""
         return json.loads(self.read_text(encoding, errors))
