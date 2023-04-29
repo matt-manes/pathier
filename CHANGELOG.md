@@ -1,20 +1,36 @@
 # Changelog
 
-## 0.9.0 (2023-04-28)
+## 0.10.0 (2023-04-29)
+
+#### New Features
+
+* add replace function
+* add execute function
+#### Docs
+
+* update readme
+* improve doc string formatting
+#### Others
+
+* remove unused import
+
+
+## v0.9.0 (2023-04-28)
 
 #### New Features
 
 * add backup function
+#### Others
+
+* build v0.9.0
+* update changelog
 
 
 ## v0.8.0 (2023-04-15)
 
-#### New Features
-
-* wrap importing typing.Self in try/except to accomodate python 3.10
 #### Refactorings
 
-* import Self from typing_extensions
+* import Self from typing_extensions to accomodate Python 3.10
 #### Others
 
 * build v0.8.0
@@ -22,6 +38,7 @@
 * remove uneeded dependency
 * set requires-python to >=3.10
 * build v0.7.0
+* remove uneeded dependency
 
 
 ## v0.7.0 (2023-04-11)
