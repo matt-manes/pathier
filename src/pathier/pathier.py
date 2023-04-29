@@ -376,6 +376,25 @@ class Pathier(pathlib.Path):
         self.copy(backup_path, True)
         return backup_path
 
+    def execute(self, command: str = "", args: str = "") -> int:
+        """Make a call to `os.system` using the path pointed to by this Pathier object.
+
+        :params:
+
+        `command`: Program/command to precede the path with.
+
+        `args`: Any arguments that should come after the path.
+
+        :returns: The integer output of `os.system`.
+
+        e.g.
+        >>> path = Pathier("mydirectory") / "myscript.py"
+        then
+        >>> path.execute("py", "--iterations 10")
+        equivalent to
+        >>> os.system(f"py {path} --iterations 10")"""
+        return os.system(f"{command} {self} {args}")
+
 
 class PosixPath(Pathier, pathlib.PurePosixPath):
     __slots__ = ()
