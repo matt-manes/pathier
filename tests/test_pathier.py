@@ -209,8 +209,7 @@ def test__backup():
 def test__execute():
     test_path = root / "test_pathier.py"
     # Don't want to execute pytest infinitely
-    test_path.write_text(test_path.read_text().replace("execute", "execute"))
+    # Also counts as testing `replace` I guess
+    test_path.replace("test__execute", "execute", 1)
     root.execute("pytest -s")
-    test_path.write_text(
-        test_path.read_text().replace("test__execute()", "test__execute()")
-    )
+    test_path.replace("execute()", "test__execute()", 1)
