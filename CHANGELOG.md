@@ -1,6 +1,17 @@
 # Changelog
 
-## 0.10.0 (2023-04-29)
+## 0.11.0 (2023-04-29)
+
+#### New Features
+
+* add join and split methods
+* add append method
+#### Docs
+
+* update readme
+
+
+## v0.10.0 (2023-04-29)
 
 #### New Features
 
@@ -12,6 +23,8 @@
 * improve doc string formatting
 #### Others
 
+* build v0.10.0
+* update changelog
 * remove unused import
 
 
@@ -28,9 +41,12 @@
 
 ## v0.8.0 (2023-04-15)
 
+#### New Features
+
+* wrap importing typing.Self in try/except to accomodate python 3.10
 #### Refactorings
 
-* import Self from typing_extensions to accomodate Python 3.10
+* import Self from typing_extensions
 #### Others
 
 * build v0.8.0
