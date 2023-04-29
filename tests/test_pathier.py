@@ -213,3 +213,15 @@ def test__execute():
     test_path.replace("test__execute", "execute", 1)
     root.execute("pytest -s")
     test_path.replace("execute()", "test__execute()", 1)
+
+
+def test__append():
+    appender = root / "appender.txt"
+    appender.append("1")
+    assert appender.read_text().splitlines() == ["1"]
+    appender.append("2")
+    assert appender.read_text().splitlines() == ["1", "2"]
+    appender.append("3", False)
+    appender.append("4")
+    assert appender.read_text().splitlines() == ["1", "2", "34"]
+    appender.delete()
