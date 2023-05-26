@@ -334,15 +334,17 @@ class Pathier(pathlib.Path):
         `sep`: The separator to use when joining `data`."""
         self.write_text(sep.join(data), encoding=encoding)
 
-    def split(self, encoding: Any | None = None) -> list[str]:
+    def split(self, encoding: Any | None = None, keepends: bool = False) -> list[str]:
         """Returns the content of the pointed at file as a list of strings, splitting at new line characters.
 
         Equivalent to `Pathier("somefile.txt").read_text(encoding=encoding).splitlines()`
 
         #### :params:
 
-        `encoding`: The file encoding to use."""
-        return self.read_text(encoding=encoding).splitlines()
+        `encoding`: The file encoding to use.
+
+        `keepend`: If `True`, line breaks will be included in returned strings."""
+        return self.read_text(encoding=encoding).splitlines(keepends)
 
     def json_loads(self, encoding: Any | None = None, errors: Any | None = None) -> Any:
         """Load json file."""
