@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.12.0 (2023-05-26)
+
+#### New Features
+
+* add `keepends` parameter to split function
+* add `sep` parameter to join function
+* add properties to track last read vs last modified times
+#### Others
+
+
+
 ## v0.11.0 (2023-04-29)
 
 #### New Features
