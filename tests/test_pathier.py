@@ -1,6 +1,8 @@
 import os
 import sys
 from typing import Any
+from datetime import datetime
+import time
 
 import pytest
 
@@ -232,4 +234,27 @@ def test__split():
     data = [str(n) for n in range(10)]
     file.join(data)
     assert file.split() == data
+    file.delete()
+
+
+def test__read_tracking():
+    file = root / "tracker.txt"
+    file.write_text("tracking\n")
+    time.sleep(5)
+    assert not file.last_read_time
+    assert file.modified_since_last_read
+    file.read_text()
+    assert file.last_read_time
+    time.sleep(0.1)
+    assert datetime.now() > file.last_read_time
+    assert not file.modified_since_last_read
+    last_read_time = file.last_read_time
+    file.write_text("tracking\n")
+    time.sleep(5)
+    assert file.modified_since_last_read
+    assert file.last_read_time == last_read_time
+    if file.modified_since_last_read:
+        file.read_text()
+    assert file.last_read_time != last_read_time
+    assert not file.modified_since_last_read
     file.delete()
