@@ -322,15 +322,17 @@ class Pathier(pathlib.Path):
             encoding=encoding,
         )
 
-    def join(self, data: list[str], encoding: Any | None = None):
-        """Write a list of strings, joined by "\\n", to the file pointed at by this instance.
+    def join(self, data: list[str], encoding: Any | None = None, sep: str = "\n"):
+        """Write a list of strings, joined by `sep`, to the file pointed at by this instance.
 
-        Equivalent to `Pathier("somefile.txt").write_text("\\n".join(data), encoding=encoding)
+        Equivalent to `Pathier("somefile.txt").write_text(sep.join(data), encoding=encoding)`
 
         #### :params:
 
-        `encoding`: The file encoding to use."""
-        self.write_text("\n".join(data), encoding=encoding)
+        `encoding`: The file encoding to use.
+
+        `sep`: The separator to use when joining `data`."""
+        self.write_text(sep.join(data), encoding=encoding)
 
     def split(self, encoding: Any | None = None) -> list[str]:
         """Returns the content of the pointed at file as a list of strings, splitting at new line characters.
