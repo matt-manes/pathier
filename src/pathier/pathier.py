@@ -6,6 +6,7 @@ import pathlib
 import shutil
 import sys
 from typing import Any
+import time
 
 import tomlkit
 from typing_extensions import Self
@@ -56,6 +57,33 @@ class Pathier(pathlib.Path):
             return (datetime.datetime.now() - self.mod_date).total_seconds()
         else:
             return None
+
+    @property
+    def last_read_time(self) -> datetime.datetime | None:
+        """Returns the last time this object made a call to `self.read_text()`, `self.read_bytes()`, or `self.open(mode="r"|"rb")`.
+        Returns `None` if the file hasn't been read from.
+
+        Note: This property is only relative to the lifetime of this `Pathier` instance, not the file itself.
+        i.e. This property will reset if you create a new `Pathier` object pointing to the same file."""
+        if self._last_read_time:
+            return datetime.datetime.fromtimestamp(self._last_read_time)
+        else:
+            return self._last_read_time
+
+    @property
+    def modified_since_last_read(self) -> bool:
+        """Returns `True` if this file hasn't been read from or has been modified since the last time this object
+        made a call to `self.read_text()`, `self.read_bytes()`, or `self.open(mode="r"|"rb")`.
+
+        Note: This property is only relative to the lifetime of this `Pathier` instance, not the file itself.
+        i.e. This property will reset if you create a new `Pathier` object pointing to the same file.
+
+        #### Caveat:
+        May not be accurate if the file was modified within a couple of seconds of checking this property.
+        (For instance, on my machine `self.mod_date` is consistently 1-1.5s in the future from when `self.write_text()` was called according to `time.time()`.)
+        """
+
+        return self.last_read_time is None or self.mod_date > self.last_read_time
 
     def size(self, format: bool = False) -> int | str | None:
         """Returns the size in bytes of this file or directory.
@@ -192,6 +220,16 @@ class Pathier(pathlib.Path):
         """Create file (and parents if necessary)."""
         self.parent.mkdir()
         super().touch()
+
+    def open(self, mode="r", buffering=-1, encoding=None, errors=None, newline=None):
+        """
+        Open the file pointed by this path and return a file object, as
+        the built-in open() function does.
+        """
+        stream = super().open(mode, buffering, encoding, errors, newline)
+        if "r" in mode:
+            self._last_read_time = time.time()
+        return stream
 
     def write_text(
         self,
@@ -460,7 +498,9 @@ class Pathier(pathlib.Path):
 
 class PosixPath(Pathier, pathlib.PurePosixPath):
     __slots__ = ()
+    _last_read_time = None
 
 
 class WindowsPath(Pathier, pathlib.PureWindowsPath):
     __slots__ = ()
+    _last_read_time = None
