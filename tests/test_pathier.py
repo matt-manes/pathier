@@ -1,8 +1,8 @@
 import os
 import sys
-from typing import Any
-from datetime import datetime
 import time
+from datetime import datetime
+from typing import Any
 
 import pytest
 
