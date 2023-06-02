@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.13.0 (2023-06-01)
+
+#### Refactorings
+
+* size() returns 0 for non-existent files instead of None
+
 ## v0.12.0 (2023-05-26)
 
 #### New Features
