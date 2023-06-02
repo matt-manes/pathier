@@ -85,15 +85,14 @@ class Pathier(pathlib.Path):
 
         return self.last_read_time is None or self.mod_date > self.last_read_time
 
-    def size(self, format: bool = False) -> int | str | None:
+    def size(self, format: bool = False) -> int | str:
         """Returns the size in bytes of this file or directory.
-        Returns `None` if this path doesn't exist.
 
         #### :params:
 
         `format`: If `True`, return value as a formatted string."""
         if not self.exists():
-            return None
+            return 0
         if self.is_file():
             size = self.stat().st_size
         if self.is_dir():
