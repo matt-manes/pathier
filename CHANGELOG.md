@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.14.0 (2023-06-10)
+
+#### New Features
+
+* add type aliases for `Pathier | pathlib.Path` and `Pathier | pathlib.Path | str`
 ## v0.13.0 (2023-06-01)
 
 #### Refactorings
