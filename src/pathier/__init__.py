@@ -1,4 +1,3 @@
-from .pathier import Pathier, Pathy, Pathish
-
+from .pathier import Pathier, Pathish, Pathy
 
 __all__ = ["Pathier", "Pathy", "Pathish"]
