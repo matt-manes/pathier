@@ -499,6 +499,10 @@ class Pathier(pathlib.Path):
         return os.system(f"{command} {self} {args}")
 
 
+Pathy = Pathier | pathlib.Path
+Pathish = Pathier | pathlib.Path | str
+
+
 class PosixPath(Pathier, pathlib.PurePosixPath):
     __slots__ = ()
     _last_read_time = None
