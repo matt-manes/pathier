@@ -371,7 +371,7 @@ class Pathier(pathlib.Path):
 
     def toml_loads(self, encoding: Any | None = None, errors: Any | None = None) -> Any:
         """Load toml file."""
-        return tomlkit.loads(self.read_text(encoding, errors))
+        return tomlkit.loads(self.read_text(encoding, errors)).unwrap()
 
     def toml_dumps(
         self,
