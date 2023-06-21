@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.14.1 (2023-06-21)
+
+#### Performance improvements
+
+* toml files will have their datatypes converted to python types when loaded
+#### Others
+
+* specify minimum tomlkit version
 ## v0.14.0 (2023-06-10)
 
 #### New Features
