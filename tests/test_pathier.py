@@ -100,12 +100,12 @@ def test__pathier__touch():
 
 
 def test__size():
-    assert (root / "test_pathier.py").size() > 0
-    assert root.size() > 0
+    assert (root / "test_pathier.py").size > 0
+    assert root.size > 0
 
 
 def test__format_size():
-    assert Pathier.format_size(1234) == "1.23 kb"
+    assert Pathier.format_bytes(1234) == "1.23 kb"
 
 
 def test__age():
@@ -240,7 +240,7 @@ def test__split():
 def test__read_tracking():
     file = root / "tracker.txt"
     file.write_text("tracking\n")
-    time.sleep(5)
+    time.sleep(2)
     assert not file.last_read_time
     assert file.modified_since_last_read
     file.read_text()
@@ -250,7 +250,7 @@ def test__read_tracking():
     assert not file.modified_since_last_read
     last_read_time = file.last_read_time
     file.write_text("tracking\n")
-    time.sleep(5)
+    time.sleep(2)
     assert file.modified_since_last_read
     assert file.last_read_time == last_read_time
     if file.modified_since_last_read:
