@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.1.0 (2023-07-02)
+
+#### New Features
+
+* add `formatted_size` property
+#### Docs
+
+* update readme
+
 ## v1.0.0 (2023-07-02)
 
 #### Performance improvements
