@@ -87,7 +87,7 @@ By default, files in the destination will not be overwritten.<br>
 `Pathier().backup()` will create a copy of the path with `_backup` appended to the stem.
 If the optional parameter, `timestamp`, is `True`, a datetime string will be added after `_backup` to prevent overwriting previous backup files.<br>
 
-`Pathier().replace()` will read the file the instance points to, replace the provided `old_string` with the provided `new_string`, and then write it back to the file.<br>
+`Pathier().replace()` takes a list of string pairs and will read the file the instance points to, replace the first of each pair with the second of each pair, and then write it back to the file.<br>
 Essentially just condenses reading the file, using str.replace(), and then writing the new content into one function call.<br>
 
 `Pathier().execute()` wraps calling `os.system()` on the path pointed to be the `Pathier` instance.<br>
@@ -96,9 +96,11 @@ Optional strings that should come before and after the path string can be specif
 
 `Pathier().append()` will append the given string to the file pointed at by the instance.<br>
 
-`Pathier().join(data)` is equivalent to calling `Pathier().write_text("\n".join(data))`
+`Pathier().join(data)` is equivalent to calling `Pathier().write_text("\n".join(data))`.<br>
+The joining string can be specified with the `sep` parameter.<br>
 
-`Pathier().split()` is equivalent to calling `Pathier().read_text().splitlines()`
+`Pathier().split()` is equivalent to calling `Pathier().read_text().splitlines()`.<br>
+Optionally, line endings can be kept with `Pathier().split(keepends=True)`.<br>
 #### Stats and Comparisons
 <pre>
 >>> from pathier import Pathier
@@ -112,9 +114,9 @@ datetime.datetime(2023, 3, 31, 18, 43, 12, 360000)
 datetime.datetime(2023, 3, 31, 21, 7, 30)
 >>> p.mod_delta
 207.488857
->>> p.size()
+>>> p.size
 10744
->>> p.size(True)
+>>> p.format_bytes(p.size)
 '10.74 kb'
 >>> p.is_larger(i)
 True
