@@ -98,6 +98,11 @@ class Pathier(pathlib.Path):
             return sum(file.stat().st_size for file in self.rglob("*.*"))
         return 0
 
+    @property
+    def formatted_size(self) -> str:
+        """The size of this file or directory formatted with `self.format_bytes()`."""
+        return self.format_bytes(self.size)
+
     @staticmethod
     def format_bytes(size: int) -> str:
         """Format `size` with common file size abbreviations and rounded to two decimal places.
