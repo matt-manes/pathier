@@ -5,38 +5,28 @@ build-backend = "hatchling.build"
 [project]
 name = "pathier"
 description = "Extends the standard library pathlib.Path class."
-version = "0.14.1"
+version = "1.0.0"
 requires-python = ">=3.10"
 dependencies = ["tomlkit>=0.11.8", "pytest", "typing_extensions"]
 readme = "README.md"
 keywords = ["pathlib", "path", "json", "toml", "shutil", "extender", "extension"]
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    ]
+classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent"]
 
 [[project.authors]]
 name = "Matt Manes"
 email = "mattmanes@pm.me"
 
 [project.urls]
-"Homepage" = "https://github.com/matt-manes/pathier"
-"Documentation" = "https://github.com/matt-manes/pathier/tree/main/docs"
+Homepage = "https://github.com/matt-manes/pathier"
+Documentation = "https://github.com/matt-manes/pathier/tree/main/docs"
 "Source code" = "https://github.com/matt-manes/pathier/tree/main/src/pathier"
 
+[project.scripts]
+
+[tool]
 [tool.pytest.ini_options]
-addopts = [
-    "--import-mode=importlib",
-    ]
+addopts = ["--import-mode=importlib"]
 pythonpath = "src"
 
 [tool.hatch.build.targets.sdist]
-exclude = [
-    ".coverage",
-    ".pytest_cache",
-    ".vscode",
-    "tests",
-    ".gitignore"
-    ]
-[project.scripts]
+exclude = [".coverage", ".pytest_cache", ".vscode", "tests", ".gitignore"]
