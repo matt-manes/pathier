@@ -293,16 +293,15 @@ class Pathier(pathlib.Path):
 
     def replace(
         self,
-        old_string: str,
-        new_string: str,
+        substitutions: list[tuple[str, str]],
         count: int = -1,
         encoding: Any | None = None,
     ):
-        """Replace `old_string` in a file with `new_string`.
+        """For each pair in `substitutions`, replace the first string with the second string.
 
         #### :params:
 
-        `count`: Only replace this many occurences of `old_string`.
+        `count`: Only replace this many occurences of each pair.
         By default (`-1`), all occurences are replaced.
 
         `encoding`: The file encoding to use.
@@ -310,13 +309,13 @@ class Pathier(pathlib.Path):
         e.g.
         >>> path = Pathier("somefile.txt")
         >>>
-        >>> path.replace("hello", "yeet")
+        >>> path.replace([("hello", "yeet"), ("goodbye", "yeehaw")])
         equivalent to
-        >>> path.write_text(path.read_text().replace("hello", "yeet"))"""
-        self.write_text(
-            self.read_text(encoding).replace(old_string, new_string, count),
-            encoding=encoding,
-        )
+        >>> path.write_text(path.read_text().replace("hello", "yeet").replace("goodbye", "yeehaw"))"""
+        text = self.read_text(encoding)
+        for sub in substitutions:
+            text = text.replace(sub[0], sub[1], count)
+        self.write_text(text, encoding=encoding)
 
     def join(self, data: list[str], encoding: Any | None = None, sep: str = "\n"):
         """Write a list of strings, joined by `sep`, to the file pointed at by this instance.
