@@ -1,5 +1,18 @@
 # Changelog
 
+## v1.0.0 (2023-07-02)
+
+#### Performance improvements
+
+* BREAKING: replace() accepts a list of 2-tuples instead of only an old and new string
+#### Refactorings
+
+* BREAKING: change `format_size()` to `format_bytes()`
+* BREAKING: change `size` to a property
+#### Docs
+
+* update readme
+
 ## v0.14.1 (2023-06-21)
 
 #### Performance improvements
