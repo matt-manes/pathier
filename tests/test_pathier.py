@@ -108,6 +108,11 @@ def test__format_size():
     assert Pathier.format_bytes(1234) == "1.23 kb"
 
 
+def test__formatted_size():
+    path = Pathier(__file__)
+    assert path.formatted_size == path.format_bytes(path.size)
+
+
 def test__age():
     assert root.age > 0
     assert (root / "yeet").age is None
