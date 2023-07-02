@@ -85,21 +85,18 @@ class Pathier(pathlib.Path):
 
         return self.last_read_time is None or self.mod_date > self.last_read_time
 
-    def size(self, format: bool = False) -> int | str:
+    @property
+    def size(self) -> int:
         """Returns the size in bytes of this file or directory.
 
-        #### :params:
-
-        `format`: If `True`, return value as a formatted string."""
+        If this path doesn't exist, `0` will be returned."""
         if not self.exists():
             return 0
-        if self.is_file():
-            size = self.stat().st_size
-        if self.is_dir():
-            size = sum(file.stat().st_size for file in self.rglob("*.*"))
-        if format:
-            return self.format_size(size)
-        return size
+        elif self.is_file():
+            return self.stat().st_size()
+        elif self.is_dir():
+            return sum(file.stat().st_size for file in self.rglob("*.*"))
+        return 0
 
     @staticmethod
     def format_size(size: int) -> str:
@@ -113,7 +110,7 @@ class Pathier(pathlib.Path):
 
     def is_larger(self, path: Self) -> bool:
         """Returns whether this file or folder is larger than the one pointed to by `path`."""
-        return self.size() > path.size()
+        return self.size > path.size
 
     def is_older(self, path: Self) -> bool:
         """Returns whether this file or folder is older than the one pointed to by `path`."""
