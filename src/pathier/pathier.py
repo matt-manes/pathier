@@ -99,7 +99,7 @@ class Pathier(pathlib.Path):
         return 0
 
     @staticmethod
-    def format_size(size: int) -> str:
+    def format_bytes(size: int) -> str:
         """Format `size` with common file size abbreviations and rounded to two decimal places.
         >>> 1234 -> "1.23 kb" """
         for unit in ["bytes", "kb", "mb", "gb", "tb", "pb"]:
