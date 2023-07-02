@@ -118,6 +118,8 @@ datetime.datetime(2023, 3, 31, 21, 7, 30)
 10744
 >>> p.format_bytes(p.size)
 '10.74 kb'
+>>> p.formatted_size
+'10.74 kb'
 >>> p.is_larger(i)
 True
 >>> p.is_older(i)
