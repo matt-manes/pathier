@@ -93,7 +93,7 @@ class Pathier(pathlib.Path):
         if not self.exists():
             return 0
         elif self.is_file():
-            return self.stat().st_size()
+            return self.stat().st_size
         elif self.is_dir():
             return sum(file.stat().st_size for file in self.rglob("*.*"))
         return 0

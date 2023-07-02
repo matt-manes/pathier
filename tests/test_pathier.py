@@ -212,9 +212,9 @@ def test__execute():
     test_path = root / "test_pathier.py"
     # Don't want to execute pytest infinitely
     # Also counts as testing `replace` I guess
-    test_path.replace("test__execute", "execute", 1)
+    test_path.replace([("test__execute", "execute")], 1)
     root.execute("pytest -s")
-    test_path.replace("execute()", "test__execute()", 1)
+    test_path.replace([("execute()", "test__execute()")], 1)
 
 
 def test__append():
