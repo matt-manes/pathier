@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.2.0 (2023-09-05)
+
+#### New Features
+
+* add sizeup cli
+#### Docs
+
+* document sizeup script
 ## v1.1.0 (2023-07-02)
 
 #### New Features
