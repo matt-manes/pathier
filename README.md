@@ -128,4 +128,29 @@ False
 True
 </pre>
 
-
+#### CLI Scripts
+Execute `sizeup` from a terminal to get a grid of sub-directories and their sizes.
+<pre>
+P:\python\projects\pathier>sizeup
+Sizing up 7 directories...
+Scanning 'dist' [____________________________________________________________________________________________________________________________________________]-100.00%
++---------------+-----------+
+| Dir           | Size      |
++===============+===========+
+| docs          | 362.74 kb |
++---------------+-----------+
+| tests         | 63.69 kb  |
++---------------+-----------+
+| dist          | 61.78 kb  |
++---------------+-----------+
+| src           | 50.91 kb  |
++---------------+-----------+
+| .git          | 24.25 kb  |
++---------------+-----------+
+| .pytest_cache | 540 bytes |
++---------------+-----------+
+| .vscode       | 197 bytes |
++---------------+-----------+
+Total size of 'P:\python\projects\pathier': 564.11 kb
+sizeup average execution time: 37ms 895us
+</pre>
