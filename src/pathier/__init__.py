@@ -1,6 +1,7 @@
-import printbuddies
 import griddle
 import noiftimer
+import printbuddies
+
 from .pathier import Pathier, Pathish, Pathy
 
 __all__ = ["Pathier", "Pathy", "Pathish"]
