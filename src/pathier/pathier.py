@@ -34,7 +34,10 @@ class Pathier(pathlib.Path):
         """If True, when `self.__str__()`/`str(self)` is called, string representations will have double backslashes converted to a forward slash.
 
         Only affects Windows paths."""
-        return self._convert_backslashes
+        try:
+            return self._convert_backslashes
+        except Exception as e:
+            return False
 
     @convert_backslashes.setter
     def convert_backslashes(self, should_convert: bool):
