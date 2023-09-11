@@ -108,7 +108,7 @@
                                 <a class="function" href="#Pathier.append">append</a>
                         </li>
                         <li>
-                                <a class="function" href="#Pathier.replace">replace</a>
+                                <a class="function" href="#Pathier.replace_strings">replace_strings</a>
                         </li>
                         <li>
                                 <a class="function" href="#Pathier.join">join</a>
@@ -501,7 +501,7 @@ pathier    </h1>
 </span><span id="Pathier-297"><a href="#Pathier-297"><span class="linenos">297</span></a>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
 </span><span id="Pathier-298"><a href="#Pathier-298"><span class="linenos">298</span></a>            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </span><span id="Pathier-299"><a href="#Pathier-299"><span class="linenos">299</span></a>
-</span><span id="Pathier-300"><a href="#Pathier-300"><span class="linenos">300</span></a>    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span>
+</span><span id="Pathier-300"><a href="#Pathier-300"><span class="linenos">300</span></a>    <span class="k">def</span> <span class="nf">replace_strings</span><span class="p">(</span>
 </span><span id="Pathier-301"><a href="#Pathier-301"><span class="linenos">301</span></a>        <span class="bp">self</span><span class="p">,</span>
 </span><span id="Pathier-302"><a href="#Pathier-302"><span class="linenos">302</span></a>        <span class="n">substitutions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
 </span><span id="Pathier-303"><a href="#Pathier-303"><span class="linenos">303</span></a>        <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
@@ -1398,42 +1398,42 @@ make the parent directory and retry the write.</p>
 
 
                             </div>
-                            <div id="Pathier.replace" class="classattr">
-                                        <input id="Pathier.replace-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="Pathier.replace_strings" class="classattr">
+                                        <input id="Pathier.replace_strings-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
             
         <span class="def">def</span>
-        <span class="name">replace</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">substitutions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>,</span><span class="param">	<span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>,</span><span class="param">	<span class="n">encoding</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
+        <span class="name">replace_strings</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="bp">self</span>,</span><span class="param">	<span class="n">substitutions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>,</span><span class="param">	<span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>,</span><span class="param">	<span class="n">encoding</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">):</span></span>
 
-                <label class="view-source-button" for="Pathier.replace-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="Pathier.replace_strings-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#Pathier.replace"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Pathier.replace-300"><a href="#Pathier.replace-300"><span class="linenos">300</span></a>    <span class="k">def</span> <span class="nf">replace</span><span class="p">(</span>
-</span><span id="Pathier.replace-301"><a href="#Pathier.replace-301"><span class="linenos">301</span></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="Pathier.replace-302"><a href="#Pathier.replace-302"><span class="linenos">302</span></a>        <span class="n">substitutions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
-</span><span id="Pathier.replace-303"><a href="#Pathier.replace-303"><span class="linenos">303</span></a>        <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
-</span><span id="Pathier.replace-304"><a href="#Pathier.replace-304"><span class="linenos">304</span></a>        <span class="n">encoding</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="Pathier.replace-305"><a href="#Pathier.replace-305"><span class="linenos">305</span></a>    <span class="p">):</span>
-</span><span id="Pathier.replace-306"><a href="#Pathier.replace-306"><span class="linenos">306</span></a>        <span class="sd">&quot;&quot;&quot;For each pair in `substitutions`, replace the first string with the second string.</span>
-</span><span id="Pathier.replace-307"><a href="#Pathier.replace-307"><span class="linenos">307</span></a>
-</span><span id="Pathier.replace-308"><a href="#Pathier.replace-308"><span class="linenos">308</span></a><span class="sd">        #### :params:</span>
-</span><span id="Pathier.replace-309"><a href="#Pathier.replace-309"><span class="linenos">309</span></a>
-</span><span id="Pathier.replace-310"><a href="#Pathier.replace-310"><span class="linenos">310</span></a><span class="sd">        `count`: Only replace this many occurences of each pair.</span>
-</span><span id="Pathier.replace-311"><a href="#Pathier.replace-311"><span class="linenos">311</span></a><span class="sd">        By default (`-1`), all occurences are replaced.</span>
-</span><span id="Pathier.replace-312"><a href="#Pathier.replace-312"><span class="linenos">312</span></a>
-</span><span id="Pathier.replace-313"><a href="#Pathier.replace-313"><span class="linenos">313</span></a><span class="sd">        `encoding`: The file encoding to use.</span>
-</span><span id="Pathier.replace-314"><a href="#Pathier.replace-314"><span class="linenos">314</span></a>
-</span><span id="Pathier.replace-315"><a href="#Pathier.replace-315"><span class="linenos">315</span></a><span class="sd">        e.g.</span>
-</span><span id="Pathier.replace-316"><a href="#Pathier.replace-316"><span class="linenos">316</span></a><span class="sd">        &gt;&gt;&gt; path = Pathier(&quot;somefile.txt&quot;)</span>
-</span><span id="Pathier.replace-317"><a href="#Pathier.replace-317"><span class="linenos">317</span></a><span class="sd">        &gt;&gt;&gt;</span>
-</span><span id="Pathier.replace-318"><a href="#Pathier.replace-318"><span class="linenos">318</span></a><span class="sd">        &gt;&gt;&gt; path.replace([(&quot;hello&quot;, &quot;yeet&quot;), (&quot;goodbye&quot;, &quot;yeehaw&quot;)])</span>
-</span><span id="Pathier.replace-319"><a href="#Pathier.replace-319"><span class="linenos">319</span></a><span class="sd">        equivalent to</span>
-</span><span id="Pathier.replace-320"><a href="#Pathier.replace-320"><span class="linenos">320</span></a><span class="sd">        &gt;&gt;&gt; path.write_text(path.read_text().replace(&quot;hello&quot;, &quot;yeet&quot;).replace(&quot;goodbye&quot;, &quot;yeehaw&quot;))&quot;&quot;&quot;</span>
-</span><span id="Pathier.replace-321"><a href="#Pathier.replace-321"><span class="linenos">321</span></a>        <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
-</span><span id="Pathier.replace-322"><a href="#Pathier.replace-322"><span class="linenos">322</span></a>        <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">substitutions</span><span class="p">:</span>
-</span><span id="Pathier.replace-323"><a href="#Pathier.replace-323"><span class="linenos">323</span></a>            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sub</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">count</span><span class="p">)</span>
-</span><span id="Pathier.replace-324"><a href="#Pathier.replace-324"><span class="linenos">324</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+    <a class="headerlink" href="#Pathier.replace_strings"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Pathier.replace_strings-300"><a href="#Pathier.replace_strings-300"><span class="linenos">300</span></a>    <span class="k">def</span> <span class="nf">replace_strings</span><span class="p">(</span>
+</span><span id="Pathier.replace_strings-301"><a href="#Pathier.replace_strings-301"><span class="linenos">301</span></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="Pathier.replace_strings-302"><a href="#Pathier.replace_strings-302"><span class="linenos">302</span></a>        <span class="n">substitutions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]],</span>
+</span><span id="Pathier.replace_strings-303"><a href="#Pathier.replace_strings-303"><span class="linenos">303</span></a>        <span class="n">count</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+</span><span id="Pathier.replace_strings-304"><a href="#Pathier.replace_strings-304"><span class="linenos">304</span></a>        <span class="n">encoding</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="Pathier.replace_strings-305"><a href="#Pathier.replace_strings-305"><span class="linenos">305</span></a>    <span class="p">):</span>
+</span><span id="Pathier.replace_strings-306"><a href="#Pathier.replace_strings-306"><span class="linenos">306</span></a>        <span class="sd">&quot;&quot;&quot;For each pair in `substitutions`, replace the first string with the second string.</span>
+</span><span id="Pathier.replace_strings-307"><a href="#Pathier.replace_strings-307"><span class="linenos">307</span></a>
+</span><span id="Pathier.replace_strings-308"><a href="#Pathier.replace_strings-308"><span class="linenos">308</span></a><span class="sd">        #### :params:</span>
+</span><span id="Pathier.replace_strings-309"><a href="#Pathier.replace_strings-309"><span class="linenos">309</span></a>
+</span><span id="Pathier.replace_strings-310"><a href="#Pathier.replace_strings-310"><span class="linenos">310</span></a><span class="sd">        `count`: Only replace this many occurences of each pair.</span>
+</span><span id="Pathier.replace_strings-311"><a href="#Pathier.replace_strings-311"><span class="linenos">311</span></a><span class="sd">        By default (`-1`), all occurences are replaced.</span>
+</span><span id="Pathier.replace_strings-312"><a href="#Pathier.replace_strings-312"><span class="linenos">312</span></a>
+</span><span id="Pathier.replace_strings-313"><a href="#Pathier.replace_strings-313"><span class="linenos">313</span></a><span class="sd">        `encoding`: The file encoding to use.</span>
+</span><span id="Pathier.replace_strings-314"><a href="#Pathier.replace_strings-314"><span class="linenos">314</span></a>
+</span><span id="Pathier.replace_strings-315"><a href="#Pathier.replace_strings-315"><span class="linenos">315</span></a><span class="sd">        e.g.</span>
+</span><span id="Pathier.replace_strings-316"><a href="#Pathier.replace_strings-316"><span class="linenos">316</span></a><span class="sd">        &gt;&gt;&gt; path = Pathier(&quot;somefile.txt&quot;)</span>
+</span><span id="Pathier.replace_strings-317"><a href="#Pathier.replace_strings-317"><span class="linenos">317</span></a><span class="sd">        &gt;&gt;&gt;</span>
+</span><span id="Pathier.replace_strings-318"><a href="#Pathier.replace_strings-318"><span class="linenos">318</span></a><span class="sd">        &gt;&gt;&gt; path.replace([(&quot;hello&quot;, &quot;yeet&quot;), (&quot;goodbye&quot;, &quot;yeehaw&quot;)])</span>
+</span><span id="Pathier.replace_strings-319"><a href="#Pathier.replace_strings-319"><span class="linenos">319</span></a><span class="sd">        equivalent to</span>
+</span><span id="Pathier.replace_strings-320"><a href="#Pathier.replace_strings-320"><span class="linenos">320</span></a><span class="sd">        &gt;&gt;&gt; path.write_text(path.read_text().replace(&quot;hello&quot;, &quot;yeet&quot;).replace(&quot;goodbye&quot;, &quot;yeehaw&quot;))&quot;&quot;&quot;</span>
+</span><span id="Pathier.replace_strings-321"><a href="#Pathier.replace_strings-321"><span class="linenos">321</span></a>        <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="p">)</span>
+</span><span id="Pathier.replace_strings-322"><a href="#Pathier.replace_strings-322"><span class="linenos">322</span></a>        <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">substitutions</span><span class="p">:</span>
+</span><span id="Pathier.replace_strings-323"><a href="#Pathier.replace_strings-323"><span class="linenos">323</span></a>            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">sub</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">sub</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">count</span><span class="p">)</span>
+</span><span id="Pathier.replace_strings-324"><a href="#Pathier.replace_strings-324"><span class="linenos">324</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1942,6 +1942,7 @@ Otherwise a <code><a href="#Pathier">Pathier</a></code> object for the backup is
                 <dd id="Pathier.rmdir" class="function">rmdir</dd>
                 <dd id="Pathier.lstat" class="function">lstat</dd>
                 <dd id="Pathier.rename" class="function">rename</dd>
+                <dd id="Pathier.replace" class="function">replace</dd>
                 <dd id="Pathier.symlink_to" class="function">symlink_to</dd>
                 <dd id="Pathier.hardlink_to" class="function">hardlink_to</dd>
                 <dd id="Pathier.link_to" class="function">link_to</dd>
