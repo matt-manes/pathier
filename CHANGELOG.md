@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.1 (2023-09-11)
+
+#### Refactorings
+
+* change `replace` to `replace_strings` to avoiding overwriting base class `replace` function
 ## v1.2.0 (2023-09-05)
 
 #### New Features
