@@ -296,7 +296,7 @@ class Pathier(pathlib.Path):
         with self.open("a", encoding=encoding) as file:
             file.write(data)
 
-    def replace(
+    def replace_strings(
         self,
         substitutions: list[tuple[str, str]],
         count: int = -1,

@@ -87,7 +87,7 @@ By default, files in the destination will not be overwritten.<br>
 `Pathier().backup()` will create a copy of the path with `_backup` appended to the stem.
 If the optional parameter, `timestamp`, is `True`, a datetime string will be added after `_backup` to prevent overwriting previous backup files.<br>
 
-`Pathier().replace()` takes a list of string pairs and will read the file the instance points to, replace the first of each pair with the second of each pair, and then write it back to the file.<br>
+`Pathier().replace_strings()` takes a list of string pairs and will read the file the instance points to, replace the first of each pair with the second of each pair, and then write it back to the file.<br>
 Essentially just condenses reading the file, using str.replace(), and then writing the new content into one function call.<br>
 
 `Pathier().execute()` wraps calling `os.system()` on the path pointed to be the `Pathier` instance.<br>
