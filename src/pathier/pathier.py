@@ -37,7 +37,7 @@ class Pathier(pathlib.Path):
         try:
             return self._convert_backslashes
         except Exception as e:
-            return False
+            return True
 
     @convert_backslashes.setter
     def convert_backslashes(self, should_convert: bool):
