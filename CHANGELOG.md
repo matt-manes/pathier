@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.1 (2023-09-11)
+
+#### Refactorings
+
+* change default value to True when convert_backslashes propert doesn't exist
+
 ## v1.3.0 (2023-09-11)
 
 #### New Features
