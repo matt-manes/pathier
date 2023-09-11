@@ -22,6 +22,13 @@ def test__pathier__is_this_thing_on():
     path = Pathier("dummy.json")
 
 
+def test__str():
+    path = Pathier("a/windows/test/path", convert_backslashes=False)
+    assert str(path) == "a\\windows\\test\\path"
+    path = Pathier("a/windows/test/path")
+    assert str(path) == "a/windows/test/path"
+
+
 def test__pathier__json_loads():
     path = root / "dummy.json"
     obj = path.json_loads()

@@ -23,7 +23,28 @@ class Pathier(pathlib.Path):
             raise NotImplementedError(
                 "cannot instantiate %r on your system" % (cls.__name__,)
             )
+        if "convert_backslashes" in kwargs:
+            self.convert_backslashes = kwargs["convert_backslashes"]
+        else:
+            self.convert_backslashes = True
         return self
+
+    @property
+    def convert_backslashes(self) -> bool:
+        """If True, when `self.__str__()`/`str(self)` is called, string representations will have double backslashes converted to a forward slash.
+
+        Only affects Windows paths."""
+        return self._convert_backslashes
+
+    @convert_backslashes.setter
+    def convert_backslashes(self, should_convert: bool):
+        self._convert_backslashes = should_convert
+
+    def __str__(self) -> str:
+        path = super().__new__(pathlib.Path, self).__str__()
+        if self.convert_backslashes:
+            path = path.replace("\\", "/")
+        return path
 
     # ===============================================stats===============================================
     @property
