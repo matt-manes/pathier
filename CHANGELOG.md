@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.0 (2023-09-11)
+
+#### New Features
+
+* by default, calling str() on a Pathier instances will convert backslashes to forward slashes
 ## v1.2.1 (2023-09-11)
 
 #### Refactorings
