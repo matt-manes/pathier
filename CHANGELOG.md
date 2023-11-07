@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.3 (2023-11-06)
+
+#### Fixes
+
+* specify below python 3.12
+
+
 ## v1.3.2 (2023-11-06)
 
 #### Fixes
