@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.2 (2023-11-06)
+
+#### Fixes
+
+* prevent crashes by creating parents in copy()
+
 ## v1.3.1 (2023-09-11)
 
 #### Refactorings
