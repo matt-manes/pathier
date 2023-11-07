@@ -88,7 +88,8 @@ class Pathier(pathlib.Path):
         Returns `None` if the file hasn't been read from.
 
         Note: This property is only relative to the lifetime of this `Pathier` instance, not the file itself.
-        i.e. This property will reset if you create a new `Pathier` object pointing to the same file."""
+        i.e. This property will reset if you create a new `Pathier` object pointing to the same file.
+        """
         if self._last_read_time:
             return datetime.datetime.fromtimestamp(self._last_read_time)
         else:
@@ -238,7 +239,8 @@ class Pathier(pathlib.Path):
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
         """Create this directory.
 
-        Same as `Path().mkdir()` except `parents` and `exist_ok` default to `True` instead of `False`."""
+        Same as `Path().mkdir()` except `parents` and `exist_ok` default to `True` instead of `False`.
+        """
         super().mkdir(mode, parents, exist_ok)
 
     def touch(self):
@@ -268,7 +270,8 @@ class Pathier(pathlib.Path):
 
         If a `TypeError` is raised, the function  will attempt to cast `data` to a `str` and try the write again.
 
-        If a `FileNotFoundError` is raised and `parents = True`, `self.parent` will be created."""
+        If a `FileNotFoundError` is raised and `parents = True`, `self.parent` will be created.
+        """
         write = functools.partial(
             super().write_text,
             encoding=encoding,
@@ -340,7 +343,8 @@ class Pathier(pathlib.Path):
         >>>
         >>> path.replace([("hello", "yeet"), ("goodbye", "yeehaw")])
         equivalent to
-        >>> path.write_text(path.read_text().replace("hello", "yeet").replace("goodbye", "yeehaw"))"""
+        >>> path.write_text(path.read_text().replace("hello", "yeet").replace("goodbye", "yeehaw"))
+        """
         text = self.read_text(encoding)
         for sub in substitutions:
             text = text.replace(sub[0], sub[1], count)
@@ -467,6 +471,7 @@ class Pathier(pathlib.Path):
         new_path = Pathier(new_path)
         if self.is_dir():
             if overwrite or not new_path.exists():
+                new_path.mkdir()
                 shutil.copytree(self, new_path, dirs_exist_ok=True)
             else:
                 files = self.rglob("*.*")
@@ -494,7 +499,8 @@ class Pathier(pathlib.Path):
         >>> ['some_file.txt', 'some_file_backup.txt']
         >>> path.backup(True)
         >>> list(path.iterdir())
-        >>> ['some_file.txt', 'some_file_backup.txt', 'some_file_backup_04-28-2023-06_25_52_PM.txt']"""
+        >>> ['some_file.txt', 'some_file_backup.txt', 'some_file_backup_04-28-2023-06_25_52_PM.txt']
+        """
         if not self.exists():
             return None
         backup_stem = f"{self.stem}_backup"
