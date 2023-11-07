@@ -24,3 +24,6 @@ def sizeup():
     ]
     print(griddle.griddy(sizes, ["Dir", "Size"]))
     print(f"Total size of '{Pathier.cwd()}': {Pathier.format_bytes(total_size)}")
+
+
+__version__ = "1.3.2"
