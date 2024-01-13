@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.6 (2024-01-12)
+
+#### Fixes
+
+* remove pathier from dependencies
+
+
 ## v1.3.5 (2024-01-12)
 
 #### Others
