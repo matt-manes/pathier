@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.5 (2024-01-12)
+
+#### Others
+
+* remove pytest from dependencies in pyproject.toml
+
+
 ## v1.3.4 (2023-11-06)
 
 #### Fixes
