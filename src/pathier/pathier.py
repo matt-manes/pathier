@@ -18,7 +18,7 @@ class Pathier(pathlib.Path):
     def __new__(cls, *args, **kwargs):
         if cls is Pathier:
             cls = WindowsPath if os.name == "nt" else PosixPath
-        self = cls._from_parts(args)
+        self = cls._from_parts(args)  # type: ignore
         if not self._flavour.is_supported:
             raise NotImplementedError(
                 "cannot instantiate %r on your system" % (cls.__name__,)
@@ -44,7 +44,7 @@ class Pathier(pathlib.Path):
         self._convert_backslashes = should_convert
 
     def __str__(self) -> str:
-        path = super().__new__(pathlib.Path, self).__str__()
+        path = super().__new__(pathlib.Path, self).__str__()  # type: ignore
         if self.convert_backslashes:
             path = path.replace("\\", "/")
         return path
@@ -53,34 +53,36 @@ class Pathier(pathlib.Path):
     @property
     def dob(self) -> datetime.datetime | None:
         """Returns the creation date of this file or directory as a `dateime.datetime` object."""
-        if self.exists():
-            return datetime.datetime.fromtimestamp(self.stat().st_ctime)
-        else:
-            return None
+        return (
+            datetime.datetime.fromtimestamp(self.stat().st_ctime)
+            if self.exists()
+            else None
+        )
 
     @property
     def age(self) -> float | None:
         """Returns the age in seconds of this file or directory."""
-        if self.exists():
-            return (datetime.datetime.now() - self.dob).total_seconds()
-        else:
-            return None
+        return (
+            (datetime.datetime.now() - self.dob).total_seconds() if self.dob else None
+        )
 
     @property
     def mod_date(self) -> datetime.datetime | None:
         """Returns the modification date of this file or directory as a `datetime.datetime` object."""
-        if self.exists():
-            return datetime.datetime.fromtimestamp(self.stat().st_mtime)
-        else:
-            return None
+        return (
+            datetime.datetime.fromtimestamp(self.stat().st_mtime)
+            if self.exists()
+            else None
+        )
 
     @property
     def mod_delta(self) -> float | None:
         """Returns how long ago in seconds this file or directory was modified."""
-        if self.exists():
-            return (datetime.datetime.now() - self.mod_date).total_seconds()
-        else:
-            return None
+        return (
+            (datetime.datetime.now() - self.mod_date).total_seconds()
+            if self.mod_date
+            else None
+        )
 
     @property
     def last_read_time(self) -> datetime.datetime | None:
@@ -90,10 +92,11 @@ class Pathier(pathlib.Path):
         Note: This property is only relative to the lifetime of this `Pathier` instance, not the file itself.
         i.e. This property will reset if you create a new `Pathier` object pointing to the same file.
         """
-        if self._last_read_time:
-            return datetime.datetime.fromtimestamp(self._last_read_time)
-        else:
-            return self._last_read_time
+        return (
+            datetime.datetime.fromtimestamp(self._last_read_time)
+            if self._last_read_time
+            else None
+        )
 
     @property
     def modified_since_last_read(self) -> bool:
@@ -107,8 +110,13 @@ class Pathier(pathlib.Path):
         May not be accurate if the file was modified within a couple of seconds of checking this property.
         (For instance, on my machine `self.mod_date` is consistently 1-1.5s in the future from when `self.write_text()` was called according to `time.time()`.)
         """
-
-        return self.last_read_time is None or self.mod_date > self.last_read_time
+        return (
+            False
+            if not self.mod_date
+            or not self.last_read_time
+            or self.mod_date < self.last_read_time
+            else True
+        )
 
     @property
     def size(self) -> int:
@@ -132,23 +140,31 @@ class Pathier(pathlib.Path):
     def format_bytes(size: int) -> str:
         """Format `size` with common file size abbreviations and rounded to two decimal places.
         >>> 1234 -> "1.23 kb" """
+        unit = "bytes"
         for unit in ["bytes", "kb", "mb", "gb", "tb", "pb"]:
             if unit != "bytes":
-                size *= 0.001
+                size *= 0.001  # type: ignore
             if size < 1000 or unit == "pb":
-                return f"{round(size, 2)} {unit}"
+                break
+        return f"{round(size, 2)} {unit}"
 
     def is_larger(self, path: Self) -> bool:
         """Returns whether this file or folder is larger than the one pointed to by `path`."""
         return self.size > path.size
 
-    def is_older(self, path: Self) -> bool:
-        """Returns whether this file or folder is older than the one pointed to by `path`."""
-        return self.dob < path.dob
+    def is_older(self, path: Self) -> bool | None:
+        """Returns whether this file or folder is older than the one pointed to by `path`.
 
-    def modified_more_recently(self, path: Self) -> bool:
-        """Returns whether this file or folder was modified more recently than the one pointed to by `path`."""
-        return self.mod_date > path.mod_date
+        Returns `None` if one or both paths don't exist."""
+        return self.dob < path.dob if self.dob and path.dob else None
+
+    def modified_more_recently(self, path: Self) -> bool | None:
+        """Returns whether this file or folder was modified more recently than the one pointed to by `path`.
+
+        Returns `None` if one or both paths don't exist."""
+        return (
+            self.mod_date > path.mod_date if self.mod_date and path.mod_date else None
+        )
 
     # ===============================================navigation===============================================
     def mkcwd(self):
@@ -185,21 +201,21 @@ class Pathier(pathlib.Path):
         """Return a new `Pathier` object that is a parent of this instance.
 
         `name` is case-sensitive and raises an exception if it isn't in `self.parts`.
-        >>> p = Pathier("C:\some\directory\in\your\system")
+        >>> p = Pathier("C:/some/directory/in/your/system")
         >>> print(p.moveup("directory"))
-        >>> "C:\some\directory"
+        >>> "C:/some/directory"
         >>> print(p.moveup("yeet"))
-        >>> "Exception: yeet is not a parent of C:\some\directory\in\your\system" """
+        >>> "Exception: yeet is not a parent of C:/some/directory/in/your/system" """
         if name not in self.parts:
             raise Exception(f"{name} is not a parent of {self}")
-        return Pathier(*(self.parts[: self.parts.index(name) + 1]))
+        return self.__class__(*(self.parts[: self.parts.index(name) + 1]))
 
     def __sub__(self, levels: int) -> Self:
         """Return a new `Pathier` object moved up `levels` number of parents from the current path.
-        >>> p = Pathier("C:\some\directory\in\your\system")
+        >>> p = Pathier("C:/some/directory/in/your/system")
         >>> new_p = p - 3
         >>> print(new_p)
-        >>> "C:\some\directory" """
+        >>> "C:/some/directory" """
         path = self
         for _ in range(levels):
             path = path.parent
@@ -232,8 +248,8 @@ class Pathier(pathlib.Path):
         if name not in self.parts:
             raise Exception(f"{name} is not a parent of {self}")
         if keep_name:
-            return Pathier(*self.parts[self.parts.index(name) :])
-        return Pathier(*self.parts[self.parts.index(name) + 1 :])
+            return self.__class__(*self.parts[self.parts.index(name) :])
+        return self.__class__(*self.parts[self.parts.index(name) + 1 :])
 
     # ============================================write and read============================================
     def mkdir(self, mode: int = 511, parents: bool = True, exist_ok: bool = True):
@@ -468,21 +484,21 @@ class Pathier(pathlib.Path):
 
         `overwrite`: If `True`, files already existing in `new_path` will be overwritten.
         If `False`, only files that don't exist in `new_path` will be copied."""
-        new_path = Pathier(new_path)
+        dst = self.__class__(new_path)
         if self.is_dir():
-            if overwrite or not new_path.exists():
-                new_path.mkdir()
-                shutil.copytree(self, new_path, dirs_exist_ok=True)
+            if overwrite or not dst.exists():
+                dst.mkdir()
+                shutil.copytree(self, dst, dirs_exist_ok=True)
             else:
                 files = self.rglob("*.*")
                 for file in files:
-                    dst = new_path.with_name(file.name)
+                    dst = dst.with_name(file.name)
                     if not dst.exists():
                         shutil.copyfile(file, dst)
         elif self.is_file():
-            if overwrite or not new_path.exists():
-                shutil.copyfile(self, new_path)
-        return new_path
+            if overwrite or not dst.exists():
+                shutil.copyfile(self, dst)
+        return dst
 
     def backup(self, timestamp: bool = False) -> Self | None:
         """Create a copy of this file or directory with `_backup` appended to the path stem.

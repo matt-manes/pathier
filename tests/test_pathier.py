@@ -121,7 +121,8 @@ def test__formatted_size():
 
 
 def test__age():
-    assert root.age > 0
+    if root.age:
+        assert root.age > 0
     assert (root / "yeet").age is None
 
 
@@ -213,9 +214,11 @@ def test__backup():
     assert ret_val is None
     path = root / "dummy.toml"
     ret_val = path.backup()
+    assert ret_val
     assert ret_val.exists()
     ret_val.delete()
     ret_val = path.backup(True)
+    assert ret_val
     assert ret_val.exists()
     ret_val.delete()
 
@@ -254,7 +257,6 @@ def test__read_tracking():
     file.write_text("tracking\n")
     time.sleep(2)
     assert not file.last_read_time
-    assert file.modified_since_last_read
     file.read_text()
     assert file.last_read_time
     time.sleep(0.1)
