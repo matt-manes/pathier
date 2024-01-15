@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.4.0 (2024-01-15)
+
+#### New Features
+
+* add pickle loads and dumps support
+
+
 ## v1.3.6 (2024-01-12)
 
 #### Fixes
