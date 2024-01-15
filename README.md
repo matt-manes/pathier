@@ -65,7 +65,7 @@ True
 
 #### Read and Write
 
-Can dump and load toml and json files without needed to explicityly import and call functions from the respective libraries:
+Can dump and load toml, json, and pickle files without needed to explicityly import and call functions from the respective libraries:
 <pre>
 from pathier import Pathier
 path = Pathier("some_file.toml")

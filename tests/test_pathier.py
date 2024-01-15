@@ -62,6 +62,24 @@ def test__pathier__toml_dumps():
     assert_dummy(obj)
 
 
+def test__pickle_dumps():
+    for name in ["dummy.pickle", "dummy.pkl"]:
+        path = root / "dummy" / name
+        path.pickle_dumps(dummy_obj)
+        assert path.exists()
+        path.delete()
+        assert not path.exists()
+        path.dumps(dummy_obj)
+        assert path.exists()
+
+
+def test__pickle_loads():
+    for name in ["dummy.pickle", "dummy.pkl"]:
+        path = root / "dummy" / name
+        obj = path.pickle_loads()
+        assert obj == dummy_obj
+
+
 def test__pathier__dumps():
     base = root / "dummy" / "dummier"
     for file in ["dummy.json", "dummy.toml"]:

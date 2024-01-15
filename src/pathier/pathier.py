@@ -6,6 +6,7 @@ import pathlib
 import shutil
 import sys
 import time
+import pickle
 from typing import Any
 
 import tomlkit
@@ -414,6 +415,14 @@ class Pathier(pathlib.Path):
             parents,
         )
 
+    def pickle_loads(self) -> Any:
+        """Load pickle file."""
+        return pickle.loads(self.read_bytes())
+
+    def pickle_dumps(self, data: Any):
+        """Dump `data` to pickle file."""
+        self.write_bytes(pickle.dumps(data))
+
     def toml_loads(self, encoding: Any | None = None, errors: Any | None = None) -> Any:
         """Load toml file."""
         return tomlkit.loads(self.read_text(encoding, errors)).unwrap()
@@ -433,12 +442,14 @@ class Pathier(pathlib.Path):
         )
 
     def loads(self, encoding: Any | None = None, errors: Any | None = None) -> Any:
-        """Load a json or toml file based off this instance's suffix."""
+        """Load a json, toml, or pickle file based off this path's suffix."""
         match self.suffix:
             case ".json":
                 return self.json_loads(encoding, errors)
             case ".toml":
                 return self.toml_loads(encoding, errors)
+            case ".pickle" | ".pkl":
+                return self.pickle_loads()
 
     def dumps(
         self,
@@ -459,6 +470,8 @@ class Pathier(pathlib.Path):
                 )
             case ".toml":
                 self.toml_dumps(data, encoding, errors, newline, sort_keys, parents)
+            case ".pickle" | ".pkl":
+                self.pickle_dumps(data)
 
     def delete(self, missing_ok: bool = True):
         """Delete the file or folder pointed to by this instance.
