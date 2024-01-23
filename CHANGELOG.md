@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.5.0 (2024-01-23)
+
+#### New Features
+
+* add default value for `default` param when calling `json.dumps()` and add default custom tomlkit encoder
+
+
 ## v1.4.0 (2024-01-15)
 
 #### New Features
