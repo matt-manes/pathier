@@ -10,7 +10,7 @@ import time
 from typing import Any
 
 import tomlkit
-from typing_extensions import Self
+from typing_extensions import Callable, Self, Sequence
 
 
 class Pathier(pathlib.Path):
@@ -402,8 +402,8 @@ class Pathier(pathlib.Path):
         errors: Any | None = None,
         newline: Any | None = None,
         sort_keys: bool = False,
-        indent: Any | None = None,
-        default: Any | None = None,
+        indent: Any | None = 2,
+        default: Any | None = str,
         parents: bool = True,
     ) -> Any:
         """Dump `data` to json file."""
@@ -430,16 +430,32 @@ class Pathier(pathlib.Path):
     def toml_dumps(
         self,
         data: Any,
+        toml_encoders: Sequence[Callable[[Any], Any]] = [str],
         encoding: Any | None = None,
         errors: Any | None = None,
         newline: Any | None = None,
         sort_keys: bool = False,
         parents: bool = True,
     ):
-        """Dump `data` to toml file."""
-        self.write_text(
-            tomlkit.dumps(data, sort_keys), encoding, errors, newline, parents
-        )
+        """Dump `data` to toml file.
+
+        `toml_encoders` can be a list of functions to call when a value in `data` doesn't map to `tomlkit`'s built in types.
+        By default, anything that `tomlkit` can't convert will be cast to a string. Encoder order matters.
+        e.g. By default any `Pathier` object in `data` will be converted to a string."""
+        encoders = []
+        for toml_encoder in toml_encoders:
+            encoder = lambda x: tomlkit.item(toml_encoder(x))
+            encoders.append(encoder)
+            tomlkit.register_encoder(encoder)
+        try:
+            self.write_text(
+                tomlkit.dumps(data, sort_keys), encoding, errors, newline, parents
+            )
+        except Exception as e:
+            raise e
+        finally:
+            for encoder in encoders:
+                tomlkit.unregister_encoder(encoder)
 
     def loads(self, encoding: Any | None = None, errors: Any | None = None) -> Any:
         """Load a json, toml, or pickle file based off this path's suffix."""
@@ -459,17 +475,25 @@ class Pathier(pathlib.Path):
         newline: Any | None = None,
         sort_keys: bool = False,
         indent: Any | None = None,
-        default: Any | None = None,
+        default: Any | None = str,
+        toml_encoders: Sequence[Callable[[Any], Any]] = [str],
         parents: bool = True,
     ):
-        """Dump `data` to a json or toml file based off this instance's suffix."""
+        """Dump `data` to a json or toml file based off this instance's suffix.
+
+        For toml files:
+        `toml_encoders` can be a list of functions to call when a value in `data` doesn't map to `tomlkit`'s built in types.
+        By default, anything that `tomlkit` can't convert will be cast to a string. Encoder order matters.
+        e.g. By default any `Pathier` object in `data` will be converted to a string."""
         match self.suffix:
             case ".json":
                 self.json_dumps(
                     data, encoding, errors, newline, sort_keys, indent, default, parents
                 )
             case ".toml":
-                self.toml_dumps(data, encoding, errors, newline, sort_keys, parents)
+                self.toml_dumps(
+                    data, toml_encoders, encoding, errors, newline, sort_keys, parents
+                )
             case ".pickle" | ".pkl":
                 self.pickle_dumps(data)
 

@@ -9,13 +9,16 @@ import pytest
 from pathier.pathier import Pathier
 
 root = Pathier(__file__).parent
-dummy_obj = {"str": "yeet", "int": 44, "list": [1, 2, 3, 4, 5]}
+dummy_obj = {"str": "yeet", "int": 44, "list": [1, 2, 3, 4, 5], "path": root}
 
 
 def assert_dummy(obj: Any):
     assert obj["str"] == "yeet"
     assert obj["int"] == 44
     assert obj["list"] == [1, 2, 3, 4, 5]
+    assert str(obj["path"]).endswith(
+        f"{root.parent.stem}/{root.stem}"
+    )  # "pathier/tests"
 
 
 def test__pathier__is_this_thing_on():
