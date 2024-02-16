@@ -10,7 +10,7 @@ import time
 from typing import Any
 
 import tomlkit
-from typing_extensions import Callable, Self, Sequence, Buffer, IO, Type
+from typing_extensions import IO, Buffer, Callable, Self, Sequence, Type
 
 
 class Pathier(pathlib.Path):
