@@ -10,17 +10,21 @@ import time
 from typing import Any
 
 import tomlkit
-from typing_extensions import Callable, Self, Sequence
+from typing_extensions import Callable, Self, Sequence, Buffer, IO, Type
 
 
 class Pathier(pathlib.Path):
     """Subclasses the standard library pathlib.Path class."""
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(
+        cls,
+        *args: Self | str | pathlib.Path,
+        **kwargs: Any,
+    ) -> Self:
         if cls is Pathier:
             cls = WindowsPath if os.name == "nt" else PosixPath
         self = cls._from_parts(args)  # type: ignore
-        if not self._flavour.is_supported:
+        if not self._flavour.is_supported:  # type: ignore
             raise NotImplementedError(
                 "cannot instantiate %r on your system" % (cls.__name__,)
             )
@@ -28,7 +32,7 @@ class Pathier(pathlib.Path):
             self.convert_backslashes = kwargs["convert_backslashes"]
         else:
             self.convert_backslashes = True
-        return self
+        return self  # type: ignore
 
     @property
     def convert_backslashes(self) -> bool:
@@ -260,12 +264,19 @@ class Pathier(pathlib.Path):
         """
         super().mkdir(mode, parents, exist_ok)
 
-    def touch(self):
+    def touch(self, mode: int = 438, exist_ok: bool = True):
         """Create file (and parents if necessary)."""
         self.parent.mkdir()
-        super().touch()
+        super().touch(mode, exist_ok)
 
-    def open(self, mode="r", buffering=-1, encoding=None, errors=None, newline=None):
+    def open(  # type: ignore
+        self,
+        mode: str = "r",
+        buffering: int = -1,
+        encoding: str | None = None,
+        errors: str | None = None,
+        newline: str | None = None,
+    ) -> IO[Any]:
         """
         Open the file pointed by this path and return a file object, as
         the built-in open() function does.
@@ -282,7 +293,7 @@ class Pathier(pathlib.Path):
         errors: Any | None = None,
         newline: Any | None = None,
         parents: bool = True,
-    ):
+    ) -> int:
         """Write data to file.
 
         If a `TypeError` is raised, the function  will attempt to cast `data` to a `str` and try the write again.
@@ -296,20 +307,20 @@ class Pathier(pathlib.Path):
             newline=newline,
         )
         try:
-            write(data)
+            return write(data)
         except TypeError:
             data = str(data)
-            write(data)
+            return write(data)
         except FileNotFoundError:
             if parents:
                 self.parent.mkdir(parents=True)
-                write(data)
+                return write(data)
             else:
                 raise
         except Exception as e:
             raise
 
-    def write_bytes(self, data: bytes, parents: bool = True):
+    def write_bytes(self, data: Buffer, parents: bool = True) -> int:
         """Write bytes to file.
 
         #### :params:
@@ -317,11 +328,11 @@ class Pathier(pathlib.Path):
         `parents`: If `True` and the write operation fails with a `FileNotFoundError`,
         make the parent directory and retry the write."""
         try:
-            super().write_bytes(data)
+            return super().write_bytes(data)
         except FileNotFoundError:
             if parents:
                 self.parent.mkdir(parents=True)
-                super().write_bytes(data)
+                return super().write_bytes(data)
             else:
                 raise
         except Exception as e:
@@ -442,14 +453,20 @@ class Pathier(pathlib.Path):
         `toml_encoders` can be a list of functions to call when a value in `data` doesn't map to `tomlkit`'s built in types.
         By default, anything that `tomlkit` can't convert will be cast to a string. Encoder order matters.
         e.g. By default any `Pathier` object in `data` will be converted to a string."""
-        encoders = []
+        encoders: list[Callable[[Any], Any]] = []
         for toml_encoder in toml_encoders:
-            encoder = lambda x: tomlkit.item(toml_encoder(x))
+            encoder: Callable[[Any], Any] = lambda x: tomlkit.item(  # type:ignore
+                toml_encoder(x)
+            )
             encoders.append(encoder)
             tomlkit.register_encoder(encoder)
         try:
             self.write_text(
-                tomlkit.dumps(data, sort_keys), encoding, errors, newline, parents
+                tomlkit.dumps(data, sort_keys),  # type:ignore
+                encoding,
+                errors,
+                newline,
+                parents,
             )
         except Exception as e:
             raise e
@@ -466,6 +483,10 @@ class Pathier(pathlib.Path):
                 return self.toml_loads(encoding, errors)
             case ".pickle" | ".pkl":
                 return self.pickle_loads()
+            case _:
+                raise ValueError(
+                    f"No load function exists for file type `{self.suffix}`."
+                )
 
     def dumps(
         self,
@@ -496,6 +517,10 @@ class Pathier(pathlib.Path):
                 )
             case ".pickle" | ".pkl":
                 self.pickle_dumps(data)
+            case _:
+                raise ValueError(
+                    f"No dump function exists for file type `{self.suffix}`."
+                )
 
     def delete(self, missing_ok: bool = True):
         """Delete the file or folder pointed to by this instance.

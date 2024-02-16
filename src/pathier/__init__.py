@@ -10,7 +10,7 @@ __all__ = ["Pathier", "Pathy", "Pathish"]
 @noiftimer.time_it()
 def sizeup():
     """Print the sub-directories and their sizes of the current working directory."""
-    sizes = {}
+    sizes: dict[str, int] = {}
     folders = [folder for folder in Pathier.cwd().iterdir() if folder.is_dir()]
     print(f"Sizing up {len(folders)} directories...")
     with printbuddies.ProgBar(len(folders)) as prog:
@@ -18,11 +18,11 @@ def sizeup():
             prog.display(f"Scanning '{folder.name}'")
             sizes[folder.name] = folder.size
     total_size = sum(sizes[folder] for folder in sizes)
-    sizes = [
+    size_list = [
         (folder, Pathier.format_bytes(sizes[folder]))
         for folder in sorted(list(sizes.keys()), key=lambda f: sizes[f], reverse=True)
     ]
-    print(griddle.griddy(sizes, ["Dir", "Size"]))
+    print(griddle.griddy(size_list, ["Dir", "Size"]))
     print(f"Total size of '{Pathier.cwd()}': {Pathier.format_bytes(total_size)}")
 
 
