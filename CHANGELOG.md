@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.5.1 (2024-02-16)
+
+#### Refactorings
+
+* improve type annotation coverage
+
+
 ## v1.5.0 (2024-01-23)
 
 #### New Features
