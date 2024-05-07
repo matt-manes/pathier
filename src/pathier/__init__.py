@@ -1,6 +1,8 @@
+import argparse
 import griddle
 import noiftimer
 import printbuddies
+import younotyou
 
 from .pathier import Pathier, Pathish, Pathy
 
@@ -10,8 +12,23 @@ __all__ = ["Pathier", "Pathy", "Pathish"]
 @noiftimer.time_it()
 def sizeup():
     """Print the sub-directories and their sizes of the current working directory."""
+    parser = argparse.ArgumentParser("sizeup")
+    parser.add_argument(
+        "-i",
+        "--ignore",
+        nargs="*",
+        default=None,
+        type=str,
+        help="Directory patterns to ignore.",
+    )
+    args = parser.parse_args()
+    matcher = younotyou.Matcher(exclude_patterns=args.ignore)
     sizes: dict[str, int] = {}
-    folders = [folder for folder in Pathier.cwd().iterdir() if folder.is_dir()]
+    folders = [
+        folder
+        for folder in Pathier.cwd().iterdir()
+        if folder.is_dir() and str(folder) not in matcher
+    ]
     print(f"Sizing up {len(folders)} directories...")
     with printbuddies.ProgBar(len(folders)) as prog:
         for folder in folders:
