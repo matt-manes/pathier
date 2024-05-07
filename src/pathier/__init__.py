@@ -1,4 +1,5 @@
 import argparse
+
 import griddle
 import noiftimer
 import printbuddies
@@ -43,4 +44,4 @@ def sizeup():
     print(f"Total size of '{Pathier.cwd()}': {Pathier.format_bytes(total_size)}")
 
 
-__version__ = "1.5.1"
+__version__ = "1.5.2"

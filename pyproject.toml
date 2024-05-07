@@ -1,8 +1,8 @@
 [project]
 name = "pathier"
 description = "Extends the standard library pathlib.Path class."
-version = "1.5.1"
-dependencies = ["tomlkit>=0.11.8", "typing_extensions", "griddle", "noiftimer", "printbuddies"]
+version = "1.5.2"
+dependencies = ["tomlkit>=0.11.8", "typing_extensions", "griddle", "noiftimer", "printbuddies", "younotyou"]
 readme = "README.md"
 keywords = ["pathlib", "path", "json", "toml", "shutil", "extender", "extension"]
 classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License", "Operating System :: OS Independent"]
