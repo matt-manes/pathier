@@ -10,7 +10,7 @@ import time
 from typing import Any
 
 import tomlkit
-from typing_extensions import IO, Buffer, Callable, Self, Sequence, Type
+from typing_extensions import IO, Buffer, Callable, Self, Sequence
 
 
 class Pathier(pathlib.Path):
@@ -353,7 +353,7 @@ class Pathier(pathlib.Path):
 
     def replace_strings(
         self,
-        substitutions: list[tuple[str, str]],
+        substitutions: Sequence[tuple[str, str]],
         count: int = -1,
         encoding: Any | None = None,
     ):
@@ -378,7 +378,7 @@ class Pathier(pathlib.Path):
             text = text.replace(sub[0], sub[1], count)
         self.write_text(text, encoding=encoding)
 
-    def join(self, data: list[str], encoding: Any | None = None, sep: str = "\n"):
+    def join(self, data: Sequence[str], encoding: Any | None = None, sep: str = "\n"):
         """Write a list of strings, joined by `sep`, to the file pointed at by this instance.
 
         Equivalent to `Pathier("somefile.txt").write_text(sep.join(data), encoding=encoding)`
