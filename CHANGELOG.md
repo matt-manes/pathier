@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.5.3 (2024-05-09)
+
+#### Fixes
+
+* fix default ignore arg in sizeup cli
+
 ## v1.5.2 (2024-05-07)
 
 #### Refactorings
