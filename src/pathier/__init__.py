@@ -18,7 +18,7 @@ def sizeup():
         "-i",
         "--ignore",
         nargs="*",
-        default=None,
+        default=[],
         type=str,
         help="Directory patterns to ignore.",
     )
@@ -28,13 +28,14 @@ def sizeup():
     folders = [
         folder
         for folder in Pathier.cwd().iterdir()
-        if folder.is_dir() and str(folder) not in matcher
+        if folder.is_dir() and str(folder) in matcher
     ]
     print(f"Sizing up {len(folders)} directories...")
-    with printbuddies.ProgBar(len(folders)) as prog:
-        for folder in folders:
-            prog.display(f"Scanning '{folder.name}'")
+    for folder in printbuddies.track(folders, "Scanning directories"):
+        try:
             sizes[folder.name] = folder.size
+        except Exception as e:
+            pass
     total_size = sum(sizes[folder] for folder in sizes)
     size_list = [
         (folder, Pathier.format_bytes(sizes[folder]))
