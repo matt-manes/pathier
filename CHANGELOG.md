@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.5.4 (2024-07-15)
+
+#### Fixes
+
+* fix `moveup` and `move_under` not correctly handling paths with duplicate parts
+
 ## v1.5.3 (2024-05-09)
 
 #### Fixes
