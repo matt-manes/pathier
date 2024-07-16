@@ -113,6 +113,7 @@ def test__pathier__delete():
 
 def test__pathier__moveup():
     assert root.moveup("pathier").stem == "pathier"
+    assert Pathier("a/b/c/a/d/e").moveup("a") == Pathier("a/b/c/a")
 
 
 def test__pathier__sub():
@@ -179,6 +180,11 @@ def test__move_under():
     assert path.move_under("b") == Pathier("a/b/c")
     assert path.move_under("d") == path
     assert path.move_under("a") == Pathier("a/b")
+
+
+def test__move_under__duplicate_parts():
+    path = Pathier("a/b/c/a/d/e")
+    assert path.move_under("a") == Pathier("a/b/c/a/d")
 
 
 def test__separate():

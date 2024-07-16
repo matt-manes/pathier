@@ -202,6 +202,14 @@ class Pathier(pathlib.Path):
         if self.in_PATH:
             sys.path.remove(str(self))
 
+    def _get_path_part_rindex(self, name: str) -> int | None:
+        """Returns the index value for the last occurrence of `name` if it is in this path instance."""
+        if name not in self.parts:
+            raise Exception(f"{name} is not a parent of {self}")
+        lastdex = len(self.parts) - 1
+        rev_parts = self.parts[::-1]
+        return lastdex - rev_parts.index(name)
+
     def moveup(self, name: str) -> Self:
         """Return a new `Pathier` object that is a parent of this instance.
 
@@ -211,9 +219,11 @@ class Pathier(pathlib.Path):
         >>> "C:/some/directory"
         >>> print(p.moveup("yeet"))
         >>> "Exception: yeet is not a parent of C:/some/directory/in/your/system" """
-        if name not in self.parts:
+        index = self._get_path_part_rindex(name)
+        if index is None:
             raise Exception(f"{name} is not a parent of {self}")
-        return self.__class__(*(self.parts[: self.parts.index(name) + 1]))
+        return self - (len(self.parts) - index - 1)
+        return self.__class__(*(self.parts[: index + 1]))
 
     def __sub__(self, levels: int) -> Self:
         """Return a new `Pathier` object moved up `levels` number of parents from the current path.
@@ -233,9 +243,10 @@ class Pathier(pathlib.Path):
         >>> p = Pathier("a/b/c/d/e/f/g")
         >>> print(p.move_under("c"))
         >>> 'a/b/c/d'"""
-        if name not in self.parts:
+        index = self._get_path_part_rindex(name)
+        if index is None:
             raise Exception(f"{name} is not a parent of {self}")
-        return self - (len(self.parts) - self.parts.index(name) - 2)
+        return self - (len(self.parts) - index - 2)
 
     def separate(self, name: str, keep_name: bool = False) -> Self:
         """Return a new `Pathier` object that is the relative child path after `name`.
