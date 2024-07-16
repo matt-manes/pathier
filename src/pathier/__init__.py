@@ -45,4 +45,4 @@ def sizeup():
     print(f"Total size of '{Pathier.cwd()}': {Pathier.format_bytes(total_size)}")
 
 
-__version__ = "1.5.3"
+__version__ = "1.5.4"
